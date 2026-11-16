@@ -44,39 +44,39 @@ Abbreviations: **PK** = primary key, **FK** = foreign key, **UQ** = unique, **NN
 
 | Column | PostgreSQL type | Constraints | Reason |
 |---|---|---|---|
-| `plan_id` | `SMALLINT` | PK, positive | Only four small numeric identifiers exist. |
-| `plan_name` | `VARCHAR(20)` | NN, UQ, allowed plan names | A short business code such as `STANDARD`. |
+| `plan_id` | `SMALLINT` | PK | Only four small numeric identifiers exist. |
+| `plan_name` | `VARCHAR(10)` | NN, UQ, allowed plan names | A short business code such as `STANDARD`. |
 | `monthly_price_inr` | `NUMERIC(8,2)` | NN, positive | Exact currency must not use floating point. |
 | `max_streams` | `SMALLINT` | NN, 1–4 | Small whole-number concurrency limit. |
-| `max_resolution` | `VARCHAR(10)` | NN, allowed values | Values such as `1080p` contain text. |
+| `max_resolution` | `VARCHAR(5)` | NN, allowed values | Values such as `1080p` contain text. |
 | `has_ads` | `BOOLEAN` | NN | True/false plan property. |
 
 ### `accounts` — 25,000 rows
 
 | Column | PostgreSQL type | Constraints | Reason |
 |---|---|---|---|
-| `account_id` | `INTEGER` | PK, positive | Stable account identifier. |
-| `email` | `TEXT` | NN, UQ, nonblank | Login identity; case-insensitive lookup is optimized later. |
-| `phone` | `VARCHAR(15)` | UQ, nullable, digits only | Optional identifier; text preserves formatting/leading zeroes. |
-| `country_code` | `CHAR(2)` | NN, allowed codes | Fixed two-letter country code. |
+| `account_id` | `INTEGER` | PK | Stable account identifier. |
+| `email` | `VARCHAR(254)` | NN, UQ, basic email-format check | Login identity; case-insensitive lookup is optimized later. |
+| `phone` | `VARCHAR(15)` | UQ, nullable, exactly 10 digits when present | Optional identifier; text preserves formatting/leading zeroes. |
+| `country_code` | `CHAR(2)` | NN, two uppercase letters | Fixed two-letter country code. |
 | `plan_id` | `SMALLINT` | NN, FK → `plans` | Current subscription plan. |
 | `signup_date` | `DATE` | NN | Calendar date, no time needed. |
-| `status` | `VARCHAR(12)` | NN, allowed statuses | `ACTIVE`, `ON_HOLD`, or `CANCELLED`. |
+| `status` | `VARCHAR(10)` | NN, allowed statuses | `ACTIVE`, `ON_HOLD`, or `CANCELLED`. |
 | `cancelled_on` | `DATE` | nullable | Present only for cancelled accounts. |
 | `next_billing_date` | `DATE` | nullable | Present for active/on-hold accounts, absent after cancellation. |
 
-The status/date check requires cancelled accounts to have `cancelled_on` and no next bill, while active/on-hold accounts require the opposite. Relevant dates cannot precede signup.
+The status/date checks require cancelled accounts to have `cancelled_on` and no next bill, while active/on-hold accounts require the opposite. A cancellation date cannot precede signup.
 
 ### `profiles` — 75,000 rows
 
 | Column | PostgreSQL type | Constraints | Reason |
 |---|---|---|---|
-| `profile_id` | `INTEGER` | PK, positive | Stable profile identifier. |
+| `profile_id` | `INTEGER` | PK | Stable profile identifier. |
 | `account_id` | `INTEGER` | NN, FK → `accounts` | Owning account. |
-| `profile_name` | `VARCHAR(100)` | NN, nonblank | User-facing profile name. |
+| `profile_name` | `VARCHAR(30)` | NN | User-facing profile name. |
 | `is_kids` | `BOOLEAN` | NN | Identifies restricted profiles. |
-| `maturity_limit` | `VARCHAR(5)` | NN, allowed ratings | Codes include `U`, `UA7`, `UA13`, `UA16`, `A`. |
-| `language` | `VARCHAR(30)` | NN, allowed languages | Profile display language. |
+| `maturity_limit` | `VARCHAR(4)` | NN, allowed ratings | Codes include `U`, `UA7`, `UA13`, `UA16`, `A`. |
+| `language` | `VARCHAR(20)` | NN | Profile display language. |
 | `created_at` | `TIMESTAMPTZ` | NN | CSV timestamps contain `+05:30`; the instant must be preserved. |
 
 `(account_id, profile_name)` is unique. Kids profiles are restricted to `U` or `UA7`. The maximum-five-profiles rule spans rows and therefore cannot be expressed with a normal `CHECK`; it is verified by an integrity query and would require a trigger or application transaction for strict concurrent enforcement.
@@ -85,25 +85,25 @@ The status/date check requires cancelled accounts to have `cancelled_on` and no 
 
 | Column | PostgreSQL type | Constraints | Reason |
 |---|---|---|---|
-| `genre_id` | `SMALLINT` | PK, positive | Small genre identifier. |
-| `genre_name` | `VARCHAR(50)` | NN, UQ, nonblank | Each genre has one unique name. |
+| `genre_id` | `SMALLINT` | PK | Small genre identifier. |
+| `genre_name` | `VARCHAR(30)` | NN, UQ | Each genre has one unique name. |
 
 ### `titles` — 3,000 rows
 
 | Column | PostgreSQL type | Constraints | Reason |
 |---|---|---|---|
-| `title_id` | `INTEGER` | PK, positive | Stable catalogue identifier. |
+| `title_id` | `INTEGER` | PK | Stable catalogue identifier. |
 | `title_type` | `VARCHAR(6)` | NN, `MOVIE`/`SERIES` | Discriminator for two title types. |
-| `name` | `VARCHAR(255)` | NN, nonblank | Display title; not declared unique because real catalogues can reuse names. |
+| `name` | `VARCHAR(200)` | NN | Display title; not declared unique because real catalogues can reuse names. |
 | `release_year` | `SMALLINT` | NN, sensible range | A year is a small whole number. |
-| `maturity_rating` | `VARCHAR(5)` | NN, allowed ratings | Indian maturity code. |
-| `original_language` | `VARCHAR(30)` | NN | Language label. |
+| `maturity_rating` | `VARCHAR(4)` | NN, allowed ratings | Indian maturity code. |
+| `original_language` | `VARCHAR(20)` | NN | Language label. |
 | `runtime_min` | `SMALLINT` | nullable, 1–600 for movies | Movies have a runtime; series do not. |
 | `is_netflix_original` | `BOOLEAN` | NN | Original/licensed flag. |
 | `added_on` | `DATE` | NN | Catalogue availability start. |
 | `leaving_on` | `DATE` | nullable | Only some licensed titles leave. |
 
-Checks enforce movie/series runtime rules, prevent Originals from having a leaving date, and prevent a leaving date before `added_on`.
+Checks enforce movie/series runtime rules, prevent Originals from having a leaving date, and require any leaving date to be later than `added_on`.
 
 ### `title_genres` — 5,963 rows
 
@@ -118,12 +118,12 @@ The composite PK `(title_id, genre_id)` prevents the same genre being assigned t
 
 | Column | PostgreSQL type | Constraints | Reason |
 |---|---|---|---|
-| `episode_id` | `INTEGER` | PK, positive | Global episode identifier. |
+| `episode_id` | `INTEGER` | PK | Global episode identifier. |
 | `title_id` | `INTEGER` | NN, FK → `titles` | Parent series. |
 | `season_no` | `SMALLINT` | NN, positive | Small ordinal. |
 | `episode_no` | `SMALLINT` | NN, positive | Position within a season. |
-| `episode_title` | `VARCHAR(255)` | NN, nonblank | Episode display name. |
-| `runtime_min` | `SMALLINT` | NN, 1–600 | Episode duration in minutes. |
+| `episode_title` | `VARCHAR(200)` | NN | Episode display name. |
+| `runtime_min` | `SMALLINT` | NN, 1–300 | Episode duration in minutes. |
 | `release_date` | `DATE` | NN | Episode release day. |
 
 `(title_id, season_no, episode_no)` is unique. `(episode_id, title_id)` is also declared unique so the composite viewing foreign key can prove that a viewed episode belongs to the supplied title.
@@ -132,13 +132,13 @@ The composite PK `(title_id, genre_id)` prevents the same genre being assigned t
 
 | Column | PostgreSQL type | Constraints | Reason |
 |---|---|---|---|
-| `view_id` | `BIGINT` | PK, positive | High-growth event identifier. |
+| `view_id` | `INTEGER` | PK | Viewing-event identifier used by the supplied workload. |
 | `profile_id` | `INTEGER` | NN, FK → `profiles` | Viewer. |
 | `title_id` | `INTEGER` | NN, FK → `titles` | Movie or parent series. |
 | `episode_id` | `INTEGER` | nullable, composite FK with `title_id` | Empty for movie views; present for episode views. |
 | `started_at` | `TIMESTAMPTZ` | NN | Exact viewing time with zone. |
-| `duration_watched_sec` | `INTEGER` | NN, 0–86,400 | Whole seconds watched. |
-| `device_type` | `VARCHAR(10)` | NN, allowed devices | `TV`, `MOBILE`, `LAPTOP`, or `TABLET`. |
+| `duration_watched_sec` | `INTEGER` | NN, greater than zero | Whole seconds watched. |
+| `device_type` | `VARCHAR(6)` | NN, allowed devices | `TV`, `MOBILE`, `LAPTOP`, or `TABLET`. |
 | `completed` | `BOOLEAN` | NN | Stored completion flag used by workload queries. |
 
 ### `ratings` — 33,900 rows
@@ -147,7 +147,7 @@ The composite PK `(title_id, genre_id)` prevents the same genre being assigned t
 |---|---|---|---|
 | `profile_id` | `INTEGER` | composite PK, FK → `profiles` | Rating author. |
 | `title_id` | `INTEGER` | composite PK, FK → `titles` | Rated title. |
-| `rating` | `VARCHAR(12)` | NN, allowed values | `THUMBS_DOWN`, `THUMBS_UP`, or `LOVE`. |
+| `rating` | `VARCHAR(11)` | NN, allowed values | `THUMBS_DOWN`, `THUMBS_UP`, or `LOVE`. |
 | `rated_at` | `TIMESTAMPTZ` | NN | Exact rating time. |
 
 The composite PK means a profile stores at most one current rating per title.
@@ -166,11 +166,11 @@ The composite PK prevents duplicate My List entries.
 
 | Column | PostgreSQL type | Constraints | Reason |
 |---|---|---|---|
-| `invoice_id` | `BIGINT` | PK, positive | High-growth billing identifier. |
+| `invoice_id` | `INTEGER` | PK | Invoice identifier used by the supplied workload. |
 | `account_id` | `INTEGER` | NN, FK → `accounts` | Billed account. |
 | `billing_period_start` | `DATE` | NN, first day of month | Monthly billing period. |
 | `amount_inr` | `NUMERIC(8,2)` | NN, positive | Historical exact invoice amount. |
-| `status` | `VARCHAR(10)` | NN, allowed statuses | `PAID`, `FAILED`, or `REFUNDED`. |
+| `status` | `VARCHAR(8)` | NN, allowed statuses | `PAID`, `FAILED`, or `REFUNDED`. |
 | `paid_at` | `TIMESTAMPTZ` | nullable, status-dependent | Failed invoices have no payment time. |
 
 `(account_id, billing_period_start)` is unique so an account cannot receive two invoices for the same month.
@@ -182,12 +182,14 @@ The composite PK prevents duplicate My List entries.
 | Plan → account | `RESTRICT` | A referenced plan must not disappear while accounts use it. |
 | Account → profile | `CASCADE` | Profiles have no independent meaning without their account. |
 | Account → invoice | `RESTRICT` | Financial history must not be silently deleted. |
-| Title → episode/title genre | `CASCADE` | These rows are structural parts of a title. |
+| Title → episode | `RESTRICT` | Prevent removing a title while its episode records exist. |
+| Title → title genre | `CASCADE` | Genre assignments have no meaning after their title is removed. |
 | Genre → title genre | `RESTRICT` | Prevent deleting a genre that is still assigned. |
 | Profile/title → rating or My List | `CASCADE` | These are dependent personalization records. |
-| Profile/title/episode → viewing activity | `RESTRICT` | Viewing history is an audit/analytics fact and must be preserved. |
+| Profile → viewing activity | `CASCADE` | Viewing history is treated as belonging to the profile in this baseline schema. |
+| Title/episode → viewing activity | `RESTRICT` | Prevent deleting catalogue records referenced by viewing history. |
 
-`ON UPDATE CASCADE` is used for referenced identifiers so a controlled key correction remains consistent, although identifiers should normally be immutable.
+No `ON UPDATE` action is specified, so PostgreSQL uses its default `NO ACTION`; identifiers are treated as immutable.
 
 ## 5. Functional dependencies and normal forms
 
@@ -226,7 +228,7 @@ All values are atomic (1NF). Junction tables use their complete composite keys, 
 
 Parents are loaded before children:
 
-`plans → accounts → profiles → genres → titles → title_genres → episodes → viewing_activity → ratings → my_list → invoices`
+`plans → genres → accounts → profiles → titles → title_genres → episodes → viewing_activity → ratings → my_list → invoices`
 
 | Table | Expected | Verified from CSV |
 |---|---:|---:|
@@ -244,15 +246,24 @@ Parents are loaded before children:
 
 ## 9. Integrity-check results
 
-| Check | Result |
-|---|---:|
-| Accounts containing more than five profiles | 0 rows |
-| Viewed episode whose series differs from `viewing_activity.title_id` | 0 rows |
-| Viewing event before the title's `added_on` date | 0 rows |
-| Kids profile with a maturity limit above `UA7` | 0 rows |
-| Broken supplied foreign-key references | 0 rows |
+| # | Check | Violations | Interpretation |
+|---:|---|---:|---|
+| 1 | Each account has at most five profiles | 0 | Pass |
+| 2 | No title was watched before it was added | 0 | Pass |
+| 3 | A viewed episode belongs to the same series as `title_id` | 0 | Pass |
+| 4 | Movie views have no episode; series views have one | 0 | Pass |
+| 5 | Only series titles have episodes | 0 | Pass |
+| 6 | Watched duration does not exceed the applicable runtime | 0 | Pass |
+| 7 | Invoice amount matches the account's current plan price | 0 | Pass for the supplied snapshot |
+| 8 | No invoice occurs after account cancellation | 0 | Pass |
+| 9 | No profile was created before account signup | 0 | Pass |
+| 10 | No viewing occurred before profile creation | **13,097** | Data-quality problem |
+| 11 | A completed view reached at least 90% of runtime | 0 | Pass |
+| 12 | Kids profiles never watched above their maturity limit | **6,714** | Compliance data found by P6/R14 |
 
-The seed data satisfies the selected constraints. No source rows required correction. A query-level correctness issue does exist in R13: `NOT IN` sees nullable movie `episode_id` values and can return an empty result. This is not corrupt data; it is SQL three-valued logic and will be corrected with `NOT EXISTS` in Phase 4.
+All seed rows load because checks 10 and 12 are cross-row/cross-table business validations rather than row-level constraints in `01_schema.sql`. Check 10 shows that some historical plays predate their profiles and must be reported as a source-data issue. Check 12 is also meaningful project data: R14 is designed to identify these compliance violations rather than assume they cannot exist.
+
+A separate query-level correctness issue exists in R13: `NOT IN` sees nullable movie `episode_id` values and can return an empty result. This is SQL three-valued logic, not corrupted data, and will be corrected with `NOT EXISTS` in Phase 4.
 
 ## 10. Baseline indexes
 
