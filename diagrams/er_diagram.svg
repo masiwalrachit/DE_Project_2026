@@ -1,0 +1,206 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1700" height="1180" viewBox="0 0 1700 1180" role="img" aria-labelledby="title desc">
+  <title id="title">Netflix Streaming Database ER Diagram</title>
+  <desc id="desc">Eleven database entities with primary keys, foreign keys, and relationship cardinalities.</desc>
+  <defs>
+    <style>
+      .bg { fill: #f8fafc; }
+      .box { fill: #ffffff; stroke: #334155; stroke-width: 2; rx: 12; }
+      .head { fill: #e50914; }
+      .entity { fill: #ffffff; font: 700 20px Arial, sans-serif; }
+      .attr { fill: #172033; font: 15px Menlo, Consolas, monospace; }
+      .key { fill: #b91c1c; font-weight: 700; }
+      .line { fill: none; stroke: #64748b; stroke-width: 2.5; marker-end: url(#arrow); }
+      .card { fill: #334155; font: 700 14px Arial, sans-serif; paint-order: stroke; stroke: #f8fafc; stroke-width: 5; }
+      .caption { fill: #475569; font: 16px Arial, sans-serif; }
+      .main-title { fill: #111827; font: 700 30px Arial, sans-serif; }
+      .legend { fill: #334155; font: 14px Arial, sans-serif; }
+    </style>
+    <marker id="arrow" markerWidth="10" markerHeight="10" refX="8" refY="3" orient="auto" markerUnits="strokeWidth">
+      <path d="M0,0 L0,6 L9,3 z" fill="#64748b"/>
+    </marker>
+  </defs>
+
+  <rect class="bg" width="1700" height="1180"/>
+  <text class="main-title" x="50" y="48">Netflix Streaming Database — Entity Relationship Diagram</text>
+  <text class="caption" x="50" y="76">Team T0147 · PostgreSQL schema: netflix</text>
+
+  <!-- Relationship lines are drawn first so boxes remain readable. -->
+  <path class="line" d="M190 270 L190 330"/>
+  <text class="card" x="198" y="300">1 : N</text>
+  <path class="line" d="M350 455 L485 455"/>
+  <text class="card" x="390" y="445">1 : N</text>
+  <path class="line" d="M195 620 L195 760"/>
+  <text class="card" x="204" y="690">1 : N</text>
+  <path class="line" d="M625 610 L625 765"/>
+  <text class="card" x="634" y="690">1 : N</text>
+  <path class="line" d="M705 610 C740 690 735 930 705 990"/>
+  <text class="card" x="728" y="900">1 : N</text>
+  <path class="line" d="M755 470 C900 520 970 780 1030 805"/>
+  <text class="card" x="850" y="598">1 : N</text>
+  <path class="line" d="M1220 315 L1280 315"/>
+  <text class="card" x="1230" y="304">1 : N</text>
+  <path class="line" d="M1080 500 L1080 600"/>
+  <text class="card" x="1090" y="555">1 : N</text>
+  <path class="line" d="M1280 680 L1220 680"/>
+  <text class="card" x="1230" y="670">N : 1</text>
+  <path class="line" d="M1080 500 C1080 610 1120 690 1120 765"/>
+  <text class="card" x="1130" y="675">1 : N</text>
+  <path class="line" d="M1420 540 C1480 650 1430 790 1220 835"/>
+  <text class="card" x="1450" y="705">0..1 : N</text>
+  <path class="line" d="M960 500 C920 700 820 770 765 820"/>
+  <text class="card" x="870" y="680">1 : N</text>
+  <path class="line" d="M985 500 C930 820 820 1010 765 1040"/>
+  <text class="card" x="865" y="920">1 : N</text>
+
+  <!-- plans -->
+  <g transform="translate(50 110)">
+    <rect class="box" width="280" height="160"/>
+    <path class="head" d="M12 0 H268 Q280 0 280 12 V44 H0 V12 Q0 0 12 0"/>
+    <text class="entity" x="18" y="29">PLANS</text>
+    <text class="attr key" x="18" y="70">PK plan_id</text>
+    <text class="attr" x="18" y="94">UQ plan_name</text>
+    <text class="attr" x="18" y="118">monthly_price_inr</text>
+    <text class="attr" x="18" y="142">streams · resolution · ads</text>
+  </g>
+
+  <!-- accounts -->
+  <g transform="translate(40 330)">
+    <rect class="box" width="310" height="290"/>
+    <path class="head" d="M12 0 H298 Q310 0 310 12 V44 H0 V12 Q0 0 12 0"/>
+    <text class="entity" x="18" y="29">ACCOUNTS</text>
+    <text class="attr key" x="18" y="70">PK account_id</text>
+    <text class="attr key" x="18" y="94">FK plan_id</text>
+    <text class="attr" x="18" y="118">UQ email</text>
+    <text class="attr" x="18" y="142">UQ phone (nullable)</text>
+    <text class="attr" x="18" y="166">country_code</text>
+    <text class="attr" x="18" y="190">signup_date</text>
+    <text class="attr" x="18" y="214">status</text>
+    <text class="attr" x="18" y="238">cancelled_on (nullable)</text>
+    <text class="attr" x="18" y="262">next_billing_date (nullable)</text>
+  </g>
+
+  <!-- invoices -->
+  <g transform="translate(40 760)">
+    <rect class="box" width="330" height="230"/>
+    <path class="head" d="M12 0 H318 Q330 0 330 12 V44 H0 V12 Q0 0 12 0"/>
+    <text class="entity" x="18" y="29">INVOICES</text>
+    <text class="attr key" x="18" y="70">PK invoice_id</text>
+    <text class="attr key" x="18" y="94">FK account_id</text>
+    <text class="attr" x="18" y="118">UQ account_id + period</text>
+    <text class="attr" x="18" y="142">billing_period_start</text>
+    <text class="attr" x="18" y="166">amount_inr</text>
+    <text class="attr" x="18" y="190">status</text>
+    <text class="attr" x="18" y="214">paid_at (nullable)</text>
+  </g>
+
+  <!-- profiles -->
+  <g transform="translate(485 330)">
+    <rect class="box" width="270" height="280"/>
+    <path class="head" d="M12 0 H258 Q270 0 270 12 V44 H0 V12 Q0 0 12 0"/>
+    <text class="entity" x="18" y="29">PROFILES</text>
+    <text class="attr key" x="18" y="70">PK profile_id</text>
+    <text class="attr key" x="18" y="94">FK account_id</text>
+    <text class="attr" x="18" y="118">UQ account_id + name</text>
+    <text class="attr" x="18" y="142">profile_name</text>
+    <text class="attr" x="18" y="166">is_kids</text>
+    <text class="attr" x="18" y="190">maturity_limit</text>
+    <text class="attr" x="18" y="214">language</text>
+    <text class="attr" x="18" y="238">created_at</text>
+  </g>
+
+  <!-- ratings -->
+  <g transform="translate(485 765)">
+    <rect class="box" width="280" height="190"/>
+    <path class="head" d="M12 0 H268 Q280 0 280 12 V44 H0 V12 Q0 0 12 0"/>
+    <text class="entity" x="18" y="29">RATINGS</text>
+    <text class="attr key" x="18" y="70">PK/FK profile_id</text>
+    <text class="attr key" x="18" y="94">PK/FK title_id</text>
+    <text class="attr" x="18" y="118">rating</text>
+    <text class="attr" x="18" y="142">rated_at</text>
+  </g>
+
+  <!-- my list -->
+  <g transform="translate(485 990)">
+    <rect class="box" width="280" height="150"/>
+    <path class="head" d="M12 0 H268 Q280 0 280 12 V44 H0 V12 Q0 0 12 0"/>
+    <text class="entity" x="18" y="29">MY_LIST</text>
+    <text class="attr key" x="18" y="70">PK/FK profile_id</text>
+    <text class="attr key" x="18" y="94">PK/FK title_id</text>
+    <text class="attr" x="18" y="118">added_at</text>
+  </g>
+
+  <!-- titles -->
+  <g transform="translate(880 110)">
+    <rect class="box" width="340" height="390"/>
+    <path class="head" d="M12 0 H328 Q340 0 340 12 V44 H0 V12 Q0 0 12 0"/>
+    <text class="entity" x="18" y="29">TITLES</text>
+    <text class="attr key" x="18" y="70">PK title_id</text>
+    <text class="attr" x="18" y="94">title_type</text>
+    <text class="attr" x="18" y="118">name</text>
+    <text class="attr" x="18" y="142">release_year</text>
+    <text class="attr" x="18" y="166">maturity_rating</text>
+    <text class="attr" x="18" y="190">original_language</text>
+    <text class="attr" x="18" y="214">runtime_min (nullable)</text>
+    <text class="attr" x="18" y="238">is_netflix_original</text>
+    <text class="attr" x="18" y="262">added_on</text>
+    <text class="attr" x="18" y="286">leaving_on (nullable)</text>
+  </g>
+
+  <!-- episodes -->
+  <g transform="translate(1280 110)">
+    <rect class="box" width="330" height="430"/>
+    <path class="head" d="M12 0 H318 Q330 0 330 12 V44 H0 V12 Q0 0 12 0"/>
+    <text class="entity" x="18" y="29">EPISODES</text>
+    <text class="attr key" x="18" y="70">PK episode_id</text>
+    <text class="attr key" x="18" y="94">FK title_id</text>
+    <text class="attr" x="18" y="118">UQ title + season + episode</text>
+    <text class="attr" x="18" y="142">season_no</text>
+    <text class="attr" x="18" y="166">episode_no</text>
+    <text class="attr" x="18" y="190">episode_title</text>
+    <text class="attr" x="18" y="214">runtime_min</text>
+    <text class="attr" x="18" y="238">release_date</text>
+  </g>
+
+  <!-- title genres -->
+  <g transform="translate(900 600)">
+    <rect class="box" width="320" height="160"/>
+    <path class="head" d="M12 0 H308 Q320 0 320 12 V44 H0 V12 Q0 0 12 0"/>
+    <text class="entity" x="18" y="29">TITLE_GENRES</text>
+    <text class="attr key" x="18" y="70">PK/FK title_id</text>
+    <text class="attr key" x="18" y="94">PK/FK genre_id</text>
+    <text class="attr" x="18" y="126">M:N bridge table</text>
+  </g>
+
+  <!-- genres -->
+  <g transform="translate(1280 600)">
+    <rect class="box" width="280" height="160"/>
+    <path class="head" d="M12 0 H268 Q280 0 280 12 V44 H0 V12 Q0 0 12 0"/>
+    <text class="entity" x="18" y="29">GENRES</text>
+    <text class="attr key" x="18" y="70">PK genre_id</text>
+    <text class="attr" x="18" y="94">UQ genre_name</text>
+  </g>
+
+  <!-- viewing activity -->
+  <g transform="translate(870 765)">
+    <rect class="box" width="350" height="360"/>
+    <path class="head" d="M12 0 H338 Q350 0 350 12 V44 H0 V12 Q0 0 12 0"/>
+    <text class="entity" x="18" y="29">VIEWING_ACTIVITY</text>
+    <text class="attr key" x="18" y="70">PK view_id</text>
+    <text class="attr key" x="18" y="94">FK profile_id</text>
+    <text class="attr key" x="18" y="118">FK title_id</text>
+    <text class="attr key" x="18" y="142">FK episode_id (nullable)</text>
+    <text class="attr" x="18" y="166">started_at</text>
+    <text class="attr" x="18" y="190">duration_watched_sec</text>
+    <text class="attr" x="18" y="214">device_type</text>
+    <text class="attr" x="18" y="238">completed</text>
+  </g>
+
+  <g transform="translate(1280 860)">
+    <rect x="0" y="0" width="330" height="150" rx="12" fill="#eef2ff" stroke="#94a3b8"/>
+    <text class="legend" x="18" y="30"><tspan font-weight="700">Legend</tspan></text>
+    <text class="legend" x="18" y="58">PK = Primary Key</text>
+    <text class="legend" x="18" y="82">FK = Foreign Key</text>
+    <text class="legend" x="18" y="106">UQ = Unique constraint</text>
+    <text class="legend" x="18" y="130">1 : N = one-to-many</text>
+  </g>
+</svg>
