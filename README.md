@@ -22,12 +22,11 @@
 
 | Role | Name | Enrollment No. | GitHub Username |
 |------|------|----------------|-----------------|
-| Group Lead | | | |
-| Member 2 | | | |
-| Member 3 | | | |
-| Member 4 | | | |
+| Group Lead | Rachit Masiwal | 2501010364 | masiwalrachit |
+| Member 2 | Akshay | 2501010686 | Akshay-4311 |
+| Member 3 | Vedant | 2501010504 | |
 
-**Team No.:** ____ · **Section:** ____ · **Repository URL:** ____
+**Team No.:** T0147 · **Section:** C · **Repository URL:** https://github.com/masiwalrachit/DE_Project_2026
 
 ---
 

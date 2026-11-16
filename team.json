@@ -1,0 +1,21 @@
+{
+  "team_number": "T0147",
+  "group_lead": {
+    "name": "Rachit Masiwal",
+    "enrollment_no": "2501010364",
+    "github": "masiwalrachit"
+  },
+  "members": [
+    {
+      "name": "Akshay",
+      "enrollment_no": "2501010686",
+      "github": "Akshay-4311"
+    },
+    {
+      "name": "Vedant",
+      "enrollment_no": "2501010504"
+    }
+  ],
+  "postgres_version": "18.3",
+  "laptop_used_for_benchmarks": "MacBook Pro (Apple M4, 16 GB RAM, macOS 27.0)"
+}
