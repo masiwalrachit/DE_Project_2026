@@ -1,206 +1,451 @@
-<svg xmlns="http://www.w3.org/2000/svg" width="1700" height="1180" viewBox="0 0 1700 1180" role="img" aria-labelledby="title desc">
-  <title id="title">Netflix Streaming Database ER Diagram</title>
-  <desc id="desc">Eleven database entities with primary keys, foreign keys, and relationship cardinalities.</desc>
-  <defs>
-    <style>
-      .bg { fill: #f8fafc; }
-      .box { fill: #ffffff; stroke: #334155; stroke-width: 2; rx: 12; }
-      .head { fill: #e50914; }
-      .entity { fill: #ffffff; font: 700 20px Arial, sans-serif; }
-      .attr { fill: #172033; font: 15px Menlo, Consolas, monospace; }
-      .key { fill: #b91c1c; font-weight: 700; }
-      .line { fill: none; stroke: #64748b; stroke-width: 2.5; marker-end: url(#arrow); }
-      .card { fill: #334155; font: 700 14px Arial, sans-serif; paint-order: stroke; stroke: #f8fafc; stroke-width: 5; }
-      .caption { fill: #475569; font: 16px Arial, sans-serif; }
-      .main-title { fill: #111827; font: 700 30px Arial, sans-serif; }
-      .legend { fill: #334155; font: 14px Arial, sans-serif; }
-    </style>
-    <marker id="arrow" markerWidth="10" markerHeight="10" refX="8" refY="3" orient="auto" markerUnits="strokeWidth">
-      <path d="M0,0 L0,6 L9,3 z" fill="#64748b"/>
-    </marker>
-  </defs>
-
-  <rect class="bg" width="1700" height="1180"/>
-  <text class="main-title" x="50" y="48">Netflix Streaming Database — Entity Relationship Diagram</text>
-  <text class="caption" x="50" y="76">Team T0147 · PostgreSQL schema: netflix</text>
-
-  <!-- Relationship lines are drawn first so boxes remain readable. -->
-  <path class="line" d="M190 270 L190 330"/>
-  <text class="card" x="198" y="300">1 : N</text>
-  <path class="line" d="M350 455 L485 455"/>
-  <text class="card" x="390" y="445">1 : N</text>
-  <path class="line" d="M195 620 L195 760"/>
-  <text class="card" x="204" y="690">1 : N</text>
-  <path class="line" d="M625 610 L625 765"/>
-  <text class="card" x="634" y="690">1 : N</text>
-  <path class="line" d="M705 610 C740 690 735 930 705 990"/>
-  <text class="card" x="728" y="900">1 : N</text>
-  <path class="line" d="M755 470 C900 520 970 780 1030 805"/>
-  <text class="card" x="850" y="598">1 : N</text>
-  <path class="line" d="M1220 315 L1280 315"/>
-  <text class="card" x="1230" y="304">1 : N</text>
-  <path class="line" d="M1080 500 L1080 600"/>
-  <text class="card" x="1090" y="555">1 : N</text>
-  <path class="line" d="M1280 680 L1220 680"/>
-  <text class="card" x="1230" y="670">N : 1</text>
-  <path class="line" d="M1080 500 C1080 610 1120 690 1120 765"/>
-  <text class="card" x="1130" y="675">1 : N</text>
-  <path class="line" d="M1420 540 C1480 650 1430 790 1220 835"/>
-  <text class="card" x="1450" y="705">0..1 : N</text>
-  <path class="line" d="M960 500 C920 700 820 770 765 820"/>
-  <text class="card" x="870" y="680">1 : N</text>
-  <path class="line" d="M985 500 C930 820 820 1010 765 1040"/>
-  <text class="card" x="865" y="920">1 : N</text>
-
-  <!-- plans -->
-  <g transform="translate(50 110)">
-    <rect class="box" width="280" height="160"/>
-    <path class="head" d="M12 0 H268 Q280 0 280 12 V44 H0 V12 Q0 0 12 0"/>
-    <text class="entity" x="18" y="29">PLANS</text>
-    <text class="attr key" x="18" y="70">PK plan_id</text>
-    <text class="attr" x="18" y="94">UQ plan_name</text>
-    <text class="attr" x="18" y="118">monthly_price_inr</text>
-    <text class="attr" x="18" y="142">streams · resolution · ads</text>
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 2010 912" width="2010" height="912" role="img" aria-label="Netflix Streaming Database ER diagram">
+  <style>
+.title{font:700 26px Helvetica,Arial,sans-serif;fill:#111827}
+.sub{font:14px Helvetica,Arial,sans-serif;fill:#6b7280}
+.box{fill:#fff;stroke:#1f2937;stroke-width:1.5}
+.head{fill:#e50914}
+.th{font:700 14px Helvetica,Arial,sans-serif;fill:#fff;letter-spacing:.4px}
+.zebra{fill:#f8fafc}
+.col{font:12px ui-monospace,Menlo,Consolas,'DejaVu Sans Mono',monospace;fill:#111827}
+.col.key{font-weight:700}
+.typ{font:11px ui-monospace,Menlo,Consolas,'DejaVu Sans Mono',monospace;fill:#64748b}
+.null{fill:#94a3b8}
+.tag{font:700 10px ui-monospace,Menlo,Consolas,'DejaVu Sans Mono',monospace}
+.pk{fill:#b20710}.fk{fill:#1d4ed8}.uk{fill:#15803d}
+.note{font:italic 10.5px Helvetica,Arial,sans-serif;fill:#6b7280}
+.sep{stroke:#e5e7eb;stroke-width:1}
+.rel{fill:none;stroke:#475569;stroke-width:1.6;stroke-linejoin:round}
+.m{stroke:#334155;stroke-width:1.6;stroke-linecap:round}
+.c{fill:#fff;stroke:#334155;stroke-width:1.6}
+.lbl{font:11px Helvetica,Arial,sans-serif;fill:#64748b}
+.lh{font:700 13px Helvetica,Arial,sans-serif;fill:#111827}
+.lt{font:12px Helvetica,Arial,sans-serif;fill:#374151}
+</style>
+  <rect width="100%" height="100%" fill="#ffffff"/>
+  <text x="40" y="42" class="title">Netflix Streaming Database — Entity Relationship Diagram</text>
+  <text x="40" y="66" class="sub">Team T0147 · PostgreSQL schema: netflix · 11 tables · 13 relationships · crow's-foot notation</text>
+  <!-- relation: PLANS (1) -> ACCOUNTS (child) -->
+  <g class="relation" data-from="PLANS" data-to="ACCOUNTS">
+    <path d="M185,302 L185,360" class="rel"/>
+    <line x1="178" y1="312" x2="192" y2="312" class="m"/>
+    <line x1="178" y1="317" x2="192" y2="317" class="m"/>
+    <line x1="185" y1="346" x2="192" y2="360" class="m"/>
+    <line x1="185" y1="346" x2="178" y2="360" class="m"/>
+    <line x1="185" y1="346" x2="185" y2="360" class="m"/>
+    <circle cx="185" cy="339" r="4.5" class="c"/>
   </g>
-
-  <!-- accounts -->
-  <g transform="translate(40 330)">
-    <rect class="box" width="310" height="290"/>
-    <path class="head" d="M12 0 H298 Q310 0 310 12 V44 H0 V12 Q0 0 12 0"/>
-    <text class="entity" x="18" y="29">ACCOUNTS</text>
-    <text class="attr key" x="18" y="70">PK account_id</text>
-    <text class="attr key" x="18" y="94">FK plan_id</text>
-    <text class="attr" x="18" y="118">UQ email</text>
-    <text class="attr" x="18" y="142">UQ phone (nullable)</text>
-    <text class="attr" x="18" y="166">country_code</text>
-    <text class="attr" x="18" y="190">signup_date</text>
-    <text class="attr" x="18" y="214">status</text>
-    <text class="attr" x="18" y="238">cancelled_on (nullable)</text>
-    <text class="attr" x="18" y="262">next_billing_date (nullable)</text>
+  <!-- relation: ACCOUNTS (1) -> PROFILES (child) -->
+  <g class="relation" data-from="ACCOUNTS" data-to="PROFILES">
+    <path d="M330,430 L450,430" class="rel"/>
+    <line x1="340" y1="437" x2="340" y2="423" class="m"/>
+    <line x1="345" y1="437" x2="345" y2="423" class="m"/>
+    <line x1="436" y1="430" x2="450" y2="423" class="m"/>
+    <line x1="436" y1="430" x2="450" y2="437" class="m"/>
+    <line x1="436" y1="430" x2="450" y2="430" class="m"/>
+    <line x1="430" y1="423" x2="430" y2="437" class="m"/>
   </g>
-
-  <!-- invoices -->
-  <g transform="translate(40 760)">
-    <rect class="box" width="330" height="230"/>
-    <path class="head" d="M12 0 H318 Q330 0 330 12 V44 H0 V12 Q0 0 12 0"/>
-    <text class="entity" x="18" y="29">INVOICES</text>
-    <text class="attr key" x="18" y="70">PK invoice_id</text>
-    <text class="attr key" x="18" y="94">FK account_id</text>
-    <text class="attr" x="18" y="118">UQ account_id + period</text>
-    <text class="attr" x="18" y="142">billing_period_start</text>
-    <text class="attr" x="18" y="166">amount_inr</text>
-    <text class="attr" x="18" y="190">status</text>
-    <text class="attr" x="18" y="214">paid_at (nullable)</text>
+  <!-- relation: ACCOUNTS (1) -> INVOICES (child) -->
+  <g class="relation" data-from="ACCOUNTS" data-to="INVOICES">
+    <path d="M185,598 L185,660" class="rel"/>
+    <line x1="178" y1="608" x2="192" y2="608" class="m"/>
+    <line x1="178" y1="613" x2="192" y2="613" class="m"/>
+    <line x1="185" y1="646" x2="192" y2="660" class="m"/>
+    <line x1="185" y1="646" x2="178" y2="660" class="m"/>
+    <line x1="185" y1="646" x2="185" y2="660" class="m"/>
+    <circle cx="185" cy="639" r="4.5" class="c"/>
   </g>
-
-  <!-- profiles -->
-  <g transform="translate(485 330)">
-    <rect class="box" width="270" height="280"/>
-    <path class="head" d="M12 0 H258 Q270 0 270 12 V44 H0 V12 Q0 0 12 0"/>
-    <text class="entity" x="18" y="29">PROFILES</text>
-    <text class="attr key" x="18" y="70">PK profile_id</text>
-    <text class="attr key" x="18" y="94">FK account_id</text>
-    <text class="attr" x="18" y="118">UQ account_id + name</text>
-    <text class="attr" x="18" y="142">profile_name</text>
-    <text class="attr" x="18" y="166">is_kids</text>
-    <text class="attr" x="18" y="190">maturity_limit</text>
-    <text class="attr" x="18" y="214">language</text>
-    <text class="attr" x="18" y="238">created_at</text>
+  <!-- relation: PROFILES (1) -> VIEWING_ACTIVITY (child) -->
+  <g class="relation" data-from="PROFILES" data-to="VIEWING_ACTIVITY">
+    <path d="M740,330 L860,330" class="rel"/>
+    <line x1="750" y1="337" x2="750" y2="323" class="m"/>
+    <line x1="755" y1="337" x2="755" y2="323" class="m"/>
+    <line x1="846" y1="330" x2="860" y2="323" class="m"/>
+    <line x1="846" y1="330" x2="860" y2="337" class="m"/>
+    <line x1="846" y1="330" x2="860" y2="330" class="m"/>
+    <circle cx="839" cy="330" r="4.5" class="c"/>
   </g>
-
-  <!-- ratings -->
-  <g transform="translate(485 765)">
-    <rect class="box" width="280" height="190"/>
-    <path class="head" d="M12 0 H268 Q280 0 280 12 V44 H0 V12 Q0 0 12 0"/>
-    <text class="entity" x="18" y="29">RATINGS</text>
-    <text class="attr key" x="18" y="70">PK/FK profile_id</text>
-    <text class="attr key" x="18" y="94">PK/FK title_id</text>
-    <text class="attr" x="18" y="118">rating</text>
-    <text class="attr" x="18" y="142">rated_at</text>
+  <!-- relation: PROFILES (1) -> RATINGS (child) -->
+  <g class="relation" data-from="PROFILES" data-to="RATINGS">
+    <path d="M740,440 L860,440" class="rel"/>
+    <line x1="750" y1="447" x2="750" y2="433" class="m"/>
+    <line x1="755" y1="447" x2="755" y2="433" class="m"/>
+    <line x1="846" y1="440" x2="860" y2="433" class="m"/>
+    <line x1="846" y1="440" x2="860" y2="447" class="m"/>
+    <line x1="846" y1="440" x2="860" y2="440" class="m"/>
+    <circle cx="839" cy="440" r="4.5" class="c"/>
   </g>
-
-  <!-- my list -->
-  <g transform="translate(485 990)">
-    <rect class="box" width="280" height="150"/>
-    <path class="head" d="M12 0 H268 Q280 0 280 12 V44 H0 V12 Q0 0 12 0"/>
-    <text class="entity" x="18" y="29">MY_LIST</text>
-    <text class="attr key" x="18" y="70">PK/FK profile_id</text>
-    <text class="attr key" x="18" y="94">PK/FK title_id</text>
-    <text class="attr" x="18" y="118">added_at</text>
+  <!-- relation: PROFILES (1) -> MY_LIST (child) -->
+  <g class="relation" data-from="PROFILES" data-to="MY_LIST">
+    <path d="M740,480 L800,480 L800,645 L860,645" class="rel"/>
+    <line x1="750" y1="487" x2="750" y2="473" class="m"/>
+    <line x1="755" y1="487" x2="755" y2="473" class="m"/>
+    <line x1="846" y1="645" x2="860" y2="638" class="m"/>
+    <line x1="846" y1="645" x2="860" y2="652" class="m"/>
+    <line x1="846" y1="645" x2="860" y2="645" class="m"/>
+    <circle cx="839" cy="645" r="4.5" class="c"/>
   </g>
-
-  <!-- titles -->
-  <g transform="translate(880 110)">
-    <rect class="box" width="340" height="390"/>
-    <path class="head" d="M12 0 H328 Q340 0 340 12 V44 H0 V12 Q0 0 12 0"/>
-    <text class="entity" x="18" y="29">TITLES</text>
-    <text class="attr key" x="18" y="70">PK title_id</text>
-    <text class="attr" x="18" y="94">title_type</text>
-    <text class="attr" x="18" y="118">name</text>
-    <text class="attr" x="18" y="142">release_year</text>
-    <text class="attr" x="18" y="166">maturity_rating</text>
-    <text class="attr" x="18" y="190">original_language</text>
-    <text class="attr" x="18" y="214">runtime_min (nullable)</text>
-    <text class="attr" x="18" y="238">is_netflix_original</text>
-    <text class="attr" x="18" y="262">added_on</text>
-    <text class="attr" x="18" y="286">leaving_on (nullable)</text>
+  <!-- relation: TITLES (1) -> VIEWING_ACTIVITY (child) -->
+  <g class="relation" data-from="TITLES" data-to="VIEWING_ACTIVITY">
+    <path d="M1270,200 L1150,200" class="rel"/>
+    <line x1="1260" y1="193" x2="1260" y2="207" class="m"/>
+    <line x1="1255" y1="193" x2="1255" y2="207" class="m"/>
+    <line x1="1164" y1="200" x2="1150" y2="207" class="m"/>
+    <line x1="1164" y1="200" x2="1150" y2="193" class="m"/>
+    <line x1="1164" y1="200" x2="1150" y2="200" class="m"/>
+    <circle cx="1171" cy="200" r="4.5" class="c"/>
   </g>
-
-  <!-- episodes -->
-  <g transform="translate(1280 110)">
-    <rect class="box" width="330" height="430"/>
-    <path class="head" d="M12 0 H318 Q330 0 330 12 V44 H0 V12 Q0 0 12 0"/>
-    <text class="entity" x="18" y="29">EPISODES</text>
-    <text class="attr key" x="18" y="70">PK episode_id</text>
-    <text class="attr key" x="18" y="94">FK title_id</text>
-    <text class="attr" x="18" y="118">UQ title + season + episode</text>
-    <text class="attr" x="18" y="142">season_no</text>
-    <text class="attr" x="18" y="166">episode_no</text>
-    <text class="attr" x="18" y="190">episode_title</text>
-    <text class="attr" x="18" y="214">runtime_min</text>
-    <text class="attr" x="18" y="238">release_date</text>
+  <!-- relation: TITLES (1) -> RATINGS (child) -->
+  <g class="relation" data-from="TITLES" data-to="RATINGS">
+    <path d="M1270,330 L1190,330 L1190,470 L1150,470" class="rel"/>
+    <line x1="1260" y1="323" x2="1260" y2="337" class="m"/>
+    <line x1="1255" y1="323" x2="1255" y2="337" class="m"/>
+    <line x1="1164" y1="470" x2="1150" y2="477" class="m"/>
+    <line x1="1164" y1="470" x2="1150" y2="463" class="m"/>
+    <line x1="1164" y1="470" x2="1150" y2="470" class="m"/>
+    <circle cx="1171" cy="470" r="4.5" class="c"/>
   </g>
-
-  <!-- title genres -->
-  <g transform="translate(900 600)">
-    <rect class="box" width="320" height="160"/>
-    <path class="head" d="M12 0 H308 Q320 0 320 12 V44 H0 V12 Q0 0 12 0"/>
-    <text class="entity" x="18" y="29">TITLE_GENRES</text>
-    <text class="attr key" x="18" y="70">PK/FK title_id</text>
-    <text class="attr key" x="18" y="94">PK/FK genre_id</text>
-    <text class="attr" x="18" y="126">M:N bridge table</text>
+  <!-- relation: TITLES (1) -> MY_LIST (child) -->
+  <g class="relation" data-from="TITLES" data-to="MY_LIST">
+    <path d="M1270,360 L1230,360 L1230,645 L1150,645" class="rel"/>
+    <line x1="1260" y1="353" x2="1260" y2="367" class="m"/>
+    <line x1="1255" y1="353" x2="1255" y2="367" class="m"/>
+    <line x1="1164" y1="645" x2="1150" y2="652" class="m"/>
+    <line x1="1164" y1="645" x2="1150" y2="638" class="m"/>
+    <line x1="1164" y1="645" x2="1150" y2="645" class="m"/>
+    <circle cx="1171" cy="645" r="4.5" class="c"/>
   </g>
-
-  <!-- genres -->
-  <g transform="translate(1280 600)">
-    <rect class="box" width="280" height="160"/>
-    <path class="head" d="M12 0 H268 Q280 0 280 12 V44 H0 V12 Q0 0 12 0"/>
-    <text class="entity" x="18" y="29">GENRES</text>
-    <text class="attr key" x="18" y="70">PK genre_id</text>
-    <text class="attr" x="18" y="94">UQ genre_name</text>
+  <!-- relation: TITLES (1) -> EPISODES (child) -->
+  <g class="relation" data-from="TITLES" data-to="EPISODES">
+    <path d="M1560,200 L1680,200" class="rel"/>
+    <line x1="1570" y1="207" x2="1570" y2="193" class="m"/>
+    <line x1="1575" y1="207" x2="1575" y2="193" class="m"/>
+    <line x1="1666" y1="200" x2="1680" y2="193" class="m"/>
+    <line x1="1666" y1="200" x2="1680" y2="207" class="m"/>
+    <line x1="1666" y1="200" x2="1680" y2="200" class="m"/>
+    <circle cx="1659" cy="200" r="4.5" class="c"/>
   </g>
-
-  <!-- viewing activity -->
-  <g transform="translate(870 765)">
-    <rect class="box" width="350" height="360"/>
-    <path class="head" d="M12 0 H338 Q350 0 350 12 V44 H0 V12 Q0 0 12 0"/>
-    <text class="entity" x="18" y="29">VIEWING_ACTIVITY</text>
-    <text class="attr key" x="18" y="70">PK view_id</text>
-    <text class="attr key" x="18" y="94">FK profile_id</text>
-    <text class="attr key" x="18" y="118">FK title_id</text>
-    <text class="attr key" x="18" y="142">FK episode_id (nullable)</text>
-    <text class="attr" x="18" y="166">started_at</text>
-    <text class="attr" x="18" y="190">duration_watched_sec</text>
-    <text class="attr" x="18" y="214">device_type</text>
-    <text class="attr" x="18" y="238">completed</text>
+  <!-- relation: TITLES (1) -> TITLE_GENRES (child) -->
+  <g class="relation" data-from="TITLES" data-to="TITLE_GENRES">
+    <path d="M1415,380 L1415,460" class="rel"/>
+    <line x1="1408" y1="390" x2="1422" y2="390" class="m"/>
+    <line x1="1408" y1="395" x2="1422" y2="395" class="m"/>
+    <line x1="1415" y1="446" x2="1422" y2="460" class="m"/>
+    <line x1="1415" y1="446" x2="1408" y2="460" class="m"/>
+    <line x1="1415" y1="446" x2="1415" y2="460" class="m"/>
+    <line x1="1422" y1="440" x2="1408" y2="440" class="m"/>
   </g>
-
-  <g transform="translate(1280 860)">
-    <rect x="0" y="0" width="330" height="150" rx="12" fill="#eef2ff" stroke="#94a3b8"/>
-    <text class="legend" x="18" y="30"><tspan font-weight="700">Legend</tspan></text>
-    <text class="legend" x="18" y="58">PK = Primary Key</text>
-    <text class="legend" x="18" y="82">FK = Foreign Key</text>
-    <text class="legend" x="18" y="106">UQ = Unique constraint</text>
-    <text class="legend" x="18" y="130">1 : N = one-to-many</text>
+  <!-- relation: GENRES (1) -> TITLE_GENRES (child) -->
+  <g class="relation" data-from="GENRES" data-to="TITLE_GENRES">
+    <path d="M1680,500 L1560,500" class="rel"/>
+    <line x1="1670" y1="493" x2="1670" y2="507" class="m"/>
+    <line x1="1665" y1="493" x2="1665" y2="507" class="m"/>
+    <line x1="1574" y1="500" x2="1560" y2="507" class="m"/>
+    <line x1="1574" y1="500" x2="1560" y2="493" class="m"/>
+    <line x1="1574" y1="500" x2="1560" y2="500" class="m"/>
+    <circle cx="1581" cy="500" r="4.5" class="c"/>
   </g>
+  <!-- relation: EPISODES (1) -> VIEWING_ACTIVITY (child) -->
+  <g class="relation" data-from="EPISODES" data-to="VIEWING_ACTIVITY">
+    <path d="M1825,120 L1825,88 L1005,88 L1005,120" class="rel"/>
+    <line x1="1832" y1="110" x2="1818" y2="110" class="m"/>
+    <circle cx="1825" cy="101" r="4.5" class="c"/>
+    <line x1="1005" y1="106" x2="1012" y2="120" class="m"/>
+    <line x1="1005" y1="106" x2="998" y2="120" class="m"/>
+    <line x1="1005" y1="106" x2="1005" y2="120" class="m"/>
+    <circle cx="1005" cy="99" r="4.5" class="c"/>
+  </g>
+  <!-- table: PLANS -->
+  <g id="PLANS">
+    <rect x="40" y="130" width="290" height="172" rx="5" class="box"/>
+    <path d="M40,162 V135 a5,5 0 0 1 5,-5 H325 a5,5 0 0 1 5,5 V162 Z" class="head"/>
+    <text x="52" y="151" class="th">PLANS</text>
+    <text x="50" y="177" class="tag pk">PK</text>
+    <text x="98" y="177" class="col key">plan_id</text>
+    <text x="320" y="177" class="typ" text-anchor="end">SMALLINT</text>
+    <rect x="41" y="184" width="288" height="22" class="zebra"/>
+    <text x="50" y="199" class="tag uk">UK</text>
+    <text x="98" y="199" class="col">plan_name</text>
+    <text x="320" y="199" class="typ" text-anchor="end">VARCHAR(10)</text>
+    <text x="98" y="221" class="col">monthly_price_inr</text>
+    <text x="320" y="221" class="typ" text-anchor="end">NUMERIC(8,2)</text>
+    <rect x="41" y="228" width="288" height="22" class="zebra"/>
+    <text x="98" y="243" class="col">max_streams</text>
+    <text x="320" y="243" class="typ" text-anchor="end">SMALLINT</text>
+    <text x="98" y="265" class="col">max_resolution</text>
+    <text x="320" y="265" class="typ" text-anchor="end">VARCHAR(5)</text>
+    <rect x="41" y="272" width="288" height="22" class="zebra"/>
+    <text x="98" y="287" class="col">has_ads</text>
+    <text x="320" y="287" class="typ" text-anchor="end">BOOLEAN</text>
+  </g>
+  <!-- table: ACCOUNTS -->
+  <g id="ACCOUNTS">
+    <rect x="40" y="360" width="290" height="238" rx="5" class="box"/>
+    <path d="M40,392 V365 a5,5 0 0 1 5,-5 H325 a5,5 0 0 1 5,5 V392 Z" class="head"/>
+    <text x="52" y="381" class="th">ACCOUNTS</text>
+    <text x="50" y="407" class="tag pk">PK</text>
+    <text x="98" y="407" class="col key">account_id</text>
+    <text x="320" y="407" class="typ" text-anchor="end">INTEGER</text>
+    <rect x="41" y="414" width="288" height="22" class="zebra"/>
+    <text x="50" y="429" class="tag uk">UK</text>
+    <text x="98" y="429" class="col">email</text>
+    <text x="320" y="429" class="typ" text-anchor="end">VARCHAR(254)</text>
+    <text x="50" y="451" class="tag uk">UK</text>
+    <text x="98" y="451" class="col">phone</text>
+    <text x="320" y="451" class="typ null" text-anchor="end">NULL</text>
+    <text x="284" y="451" class="typ" text-anchor="end">VARCHAR(15) ·</text>
+    <rect x="41" y="458" width="288" height="22" class="zebra"/>
+    <text x="98" y="473" class="col">country_code</text>
+    <text x="320" y="473" class="typ" text-anchor="end">CHAR(2)</text>
+    <text x="50" y="495" class="tag fk">FK</text>
+    <text x="98" y="495" class="col">plan_id</text>
+    <text x="320" y="495" class="typ" text-anchor="end">SMALLINT</text>
+    <rect x="41" y="502" width="288" height="22" class="zebra"/>
+    <text x="98" y="517" class="col">signup_date</text>
+    <text x="320" y="517" class="typ" text-anchor="end">DATE</text>
+    <text x="98" y="539" class="col">status</text>
+    <text x="320" y="539" class="typ" text-anchor="end">VARCHAR(10)</text>
+    <rect x="41" y="546" width="288" height="22" class="zebra"/>
+    <text x="98" y="561" class="col">cancelled_on</text>
+    <text x="320" y="561" class="typ null" text-anchor="end">NULL</text>
+    <text x="284" y="561" class="typ" text-anchor="end">DATE ·</text>
+    <text x="98" y="583" class="col">next_billing_date</text>
+    <text x="320" y="583" class="typ null" text-anchor="end">NULL</text>
+    <text x="284" y="583" class="typ" text-anchor="end">DATE ·</text>
+  </g>
+  <!-- table: INVOICES -->
+  <g id="INVOICES">
+    <rect x="40" y="660" width="290" height="192" rx="5" class="box"/>
+    <path d="M40,692 V665 a5,5 0 0 1 5,-5 H325 a5,5 0 0 1 5,5 V692 Z" class="head"/>
+    <text x="52" y="681" class="th">INVOICES</text>
+    <text x="50" y="707" class="tag pk">PK</text>
+    <text x="98" y="707" class="col key">invoice_id</text>
+    <text x="320" y="707" class="typ" text-anchor="end">INTEGER</text>
+    <rect x="41" y="714" width="288" height="22" class="zebra"/>
+    <text x="50" y="729" class="tag fk">FK</text>
+    <text x="98" y="729" class="col">account_id</text>
+    <text x="320" y="729" class="typ" text-anchor="end">INTEGER</text>
+    <text x="98" y="751" class="col">billing_period_start</text>
+    <text x="320" y="751" class="typ" text-anchor="end">DATE</text>
+    <rect x="41" y="758" width="288" height="22" class="zebra"/>
+    <text x="98" y="773" class="col">amount_inr</text>
+    <text x="320" y="773" class="typ" text-anchor="end">NUMERIC(8,2)</text>
+    <text x="98" y="795" class="col">status</text>
+    <text x="320" y="795" class="typ" text-anchor="end">VARCHAR(8)</text>
+    <rect x="41" y="802" width="288" height="22" class="zebra"/>
+    <text x="98" y="817" class="col">paid_at</text>
+    <text x="320" y="817" class="typ null" text-anchor="end">NULL</text>
+    <text x="284" y="817" class="typ" text-anchor="end">TIMESTAMPTZ ·</text>
+    <line x1="41" y1="826" x2="329" y2="826" class="sep"/>
+    <text x="50" y="839" class="note">UNIQUE (account_id, billing_period_start)</text>
+  </g>
+  <!-- table: PROFILES -->
+  <g id="PROFILES">
+    <rect x="450" y="290" width="290" height="214" rx="5" class="box"/>
+    <path d="M450,322 V295 a5,5 0 0 1 5,-5 H735 a5,5 0 0 1 5,5 V322 Z" class="head"/>
+    <text x="462" y="311" class="th">PROFILES</text>
+    <text x="460" y="337" class="tag pk">PK</text>
+    <text x="508" y="337" class="col key">profile_id</text>
+    <text x="730" y="337" class="typ" text-anchor="end">INTEGER</text>
+    <rect x="451" y="344" width="288" height="22" class="zebra"/>
+    <text x="460" y="359" class="tag fk">FK</text>
+    <text x="508" y="359" class="col">account_id</text>
+    <text x="730" y="359" class="typ" text-anchor="end">INTEGER</text>
+    <text x="508" y="381" class="col">profile_name</text>
+    <text x="730" y="381" class="typ" text-anchor="end">VARCHAR(30)</text>
+    <rect x="451" y="388" width="288" height="22" class="zebra"/>
+    <text x="508" y="403" class="col">is_kids</text>
+    <text x="730" y="403" class="typ" text-anchor="end">BOOLEAN</text>
+    <text x="508" y="425" class="col">maturity_limit</text>
+    <text x="730" y="425" class="typ" text-anchor="end">VARCHAR(4)</text>
+    <rect x="451" y="432" width="288" height="22" class="zebra"/>
+    <text x="508" y="447" class="col">language</text>
+    <text x="730" y="447" class="typ" text-anchor="end">VARCHAR(20)</text>
+    <text x="508" y="469" class="col">created_at</text>
+    <text x="730" y="469" class="typ" text-anchor="end">TIMESTAMPTZ</text>
+    <line x1="451" y1="478" x2="739" y2="478" class="sep"/>
+    <text x="460" y="491" class="note">UNIQUE (account_id, profile_name)</text>
+  </g>
+  <!-- table: VIEWING_ACTIVITY -->
+  <g id="VIEWING_ACTIVITY">
+    <rect x="860" y="120" width="290" height="236" rx="5" class="box"/>
+    <path d="M860,152 V125 a5,5 0 0 1 5,-5 H1145 a5,5 0 0 1 5,5 V152 Z" class="head"/>
+    <text x="872" y="141" class="th">VIEWING_ACTIVITY</text>
+    <text x="870" y="167" class="tag pk">PK</text>
+    <text x="918" y="167" class="col key">view_id</text>
+    <text x="1140" y="167" class="typ" text-anchor="end">INTEGER</text>
+    <rect x="861" y="174" width="288" height="22" class="zebra"/>
+    <text x="870" y="189" class="tag fk">FK</text>
+    <text x="918" y="189" class="col">profile_id</text>
+    <text x="1140" y="189" class="typ" text-anchor="end">INTEGER</text>
+    <text x="870" y="211" class="tag fk">FK</text>
+    <text x="918" y="211" class="col">title_id</text>
+    <text x="1140" y="211" class="typ" text-anchor="end">INTEGER</text>
+    <rect x="861" y="218" width="288" height="22" class="zebra"/>
+    <text x="870" y="233" class="tag fk">FK</text>
+    <text x="918" y="233" class="col">episode_id</text>
+    <text x="1140" y="233" class="typ null" text-anchor="end">NULL</text>
+    <text x="1104" y="233" class="typ" text-anchor="end">INTEGER ·</text>
+    <text x="918" y="255" class="col">started_at</text>
+    <text x="1140" y="255" class="typ" text-anchor="end">TIMESTAMPTZ</text>
+    <rect x="861" y="262" width="288" height="22" class="zebra"/>
+    <text x="918" y="277" class="col">duration_watched_sec</text>
+    <text x="1140" y="277" class="typ" text-anchor="end">INTEGER</text>
+    <text x="918" y="299" class="col">device_type</text>
+    <text x="1140" y="299" class="typ" text-anchor="end">VARCHAR(6)</text>
+    <rect x="861" y="306" width="288" height="22" class="zebra"/>
+    <text x="918" y="321" class="col">completed</text>
+    <text x="1140" y="321" class="typ" text-anchor="end">BOOLEAN</text>
+    <line x1="861" y1="330" x2="1149" y2="330" class="sep"/>
+    <text x="870" y="343" class="note">FK (episode_id, title_id) → episodes</text>
+  </g>
+  <!-- table: RATINGS -->
+  <g id="RATINGS">
+    <rect x="860" y="410" width="290" height="128" rx="5" class="box"/>
+    <path d="M860,442 V415 a5,5 0 0 1 5,-5 H1145 a5,5 0 0 1 5,5 V442 Z" class="head"/>
+    <text x="872" y="431" class="th">RATINGS</text>
+    <text x="870" y="457" class="tag pk">PK,FK</text>
+    <text x="918" y="457" class="col key">profile_id</text>
+    <text x="1140" y="457" class="typ" text-anchor="end">INTEGER</text>
+    <rect x="861" y="464" width="288" height="22" class="zebra"/>
+    <text x="870" y="479" class="tag pk">PK,FK</text>
+    <text x="918" y="479" class="col key">title_id</text>
+    <text x="1140" y="479" class="typ" text-anchor="end">INTEGER</text>
+    <text x="918" y="501" class="col">rating</text>
+    <text x="1140" y="501" class="typ" text-anchor="end">VARCHAR(11)</text>
+    <rect x="861" y="508" width="288" height="22" class="zebra"/>
+    <text x="918" y="523" class="col">rated_at</text>
+    <text x="1140" y="523" class="typ" text-anchor="end">TIMESTAMPTZ</text>
+  </g>
+  <!-- table: MY_LIST -->
+  <g id="MY_LIST">
+    <rect x="860" y="592" width="290" height="106" rx="5" class="box"/>
+    <path d="M860,624 V597 a5,5 0 0 1 5,-5 H1145 a5,5 0 0 1 5,5 V624 Z" class="head"/>
+    <text x="872" y="613" class="th">MY_LIST</text>
+    <text x="870" y="639" class="tag pk">PK,FK</text>
+    <text x="918" y="639" class="col key">profile_id</text>
+    <text x="1140" y="639" class="typ" text-anchor="end">INTEGER</text>
+    <rect x="861" y="646" width="288" height="22" class="zebra"/>
+    <text x="870" y="661" class="tag pk">PK,FK</text>
+    <text x="918" y="661" class="col key">title_id</text>
+    <text x="1140" y="661" class="typ" text-anchor="end">INTEGER</text>
+    <text x="918" y="683" class="col">added_at</text>
+    <text x="1140" y="683" class="typ" text-anchor="end">TIMESTAMPTZ</text>
+  </g>
+  <!-- table: TITLES -->
+  <g id="TITLES">
+    <rect x="1270" y="120" width="290" height="260" rx="5" class="box"/>
+    <path d="M1270,152 V125 a5,5 0 0 1 5,-5 H1555 a5,5 0 0 1 5,5 V152 Z" class="head"/>
+    <text x="1282" y="141" class="th">TITLES</text>
+    <text x="1280" y="167" class="tag pk">PK</text>
+    <text x="1328" y="167" class="col key">title_id</text>
+    <text x="1550" y="167" class="typ" text-anchor="end">INTEGER</text>
+    <rect x="1271" y="174" width="288" height="22" class="zebra"/>
+    <text x="1328" y="189" class="col">title_type</text>
+    <text x="1550" y="189" class="typ" text-anchor="end">VARCHAR(6)</text>
+    <text x="1328" y="211" class="col">name</text>
+    <text x="1550" y="211" class="typ" text-anchor="end">VARCHAR(200)</text>
+    <rect x="1271" y="218" width="288" height="22" class="zebra"/>
+    <text x="1328" y="233" class="col">release_year</text>
+    <text x="1550" y="233" class="typ" text-anchor="end">SMALLINT</text>
+    <text x="1328" y="255" class="col">maturity_rating</text>
+    <text x="1550" y="255" class="typ" text-anchor="end">VARCHAR(4)</text>
+    <rect x="1271" y="262" width="288" height="22" class="zebra"/>
+    <text x="1328" y="277" class="col">original_language</text>
+    <text x="1550" y="277" class="typ" text-anchor="end">VARCHAR(20)</text>
+    <text x="1328" y="299" class="col">runtime_min</text>
+    <text x="1550" y="299" class="typ null" text-anchor="end">NULL</text>
+    <text x="1514" y="299" class="typ" text-anchor="end">SMALLINT ·</text>
+    <rect x="1271" y="306" width="288" height="22" class="zebra"/>
+    <text x="1328" y="321" class="col">is_netflix_original</text>
+    <text x="1550" y="321" class="typ" text-anchor="end">BOOLEAN</text>
+    <text x="1328" y="343" class="col">added_on</text>
+    <text x="1550" y="343" class="typ" text-anchor="end">DATE</text>
+    <rect x="1271" y="350" width="288" height="22" class="zebra"/>
+    <text x="1328" y="365" class="col">leaving_on</text>
+    <text x="1550" y="365" class="typ null" text-anchor="end">NULL</text>
+    <text x="1514" y="365" class="typ" text-anchor="end">DATE ·</text>
+  </g>
+  <!-- table: TITLE_GENRES -->
+  <g id="TITLE_GENRES">
+    <rect x="1270" y="460" width="290" height="104" rx="5" class="box"/>
+    <path d="M1270,492 V465 a5,5 0 0 1 5,-5 H1555 a5,5 0 0 1 5,5 V492 Z" class="head"/>
+    <text x="1282" y="481" class="th">TITLE_GENRES</text>
+    <text x="1280" y="507" class="tag pk">PK,FK</text>
+    <text x="1328" y="507" class="col key">title_id</text>
+    <text x="1550" y="507" class="typ" text-anchor="end">INTEGER</text>
+    <rect x="1271" y="514" width="288" height="22" class="zebra"/>
+    <text x="1280" y="529" class="tag pk">PK,FK</text>
+    <text x="1328" y="529" class="col key">genre_id</text>
+    <text x="1550" y="529" class="typ" text-anchor="end">SMALLINT</text>
+    <line x1="1271" y1="538" x2="1559" y2="538" class="sep"/>
+    <text x="1280" y="551" class="note">M:N bridge between titles and genres</text>
+  </g>
+  <!-- table: EPISODES -->
+  <g id="EPISODES">
+    <rect x="1680" y="120" width="290" height="232" rx="5" class="box"/>
+    <path d="M1680,152 V125 a5,5 0 0 1 5,-5 H1965 a5,5 0 0 1 5,5 V152 Z" class="head"/>
+    <text x="1692" y="141" class="th">EPISODES</text>
+    <text x="1690" y="167" class="tag pk">PK</text>
+    <text x="1738" y="167" class="col key">episode_id</text>
+    <text x="1960" y="167" class="typ" text-anchor="end">INTEGER</text>
+    <rect x="1681" y="174" width="288" height="22" class="zebra"/>
+    <text x="1690" y="189" class="tag fk">FK</text>
+    <text x="1738" y="189" class="col">title_id</text>
+    <text x="1960" y="189" class="typ" text-anchor="end">INTEGER</text>
+    <text x="1738" y="211" class="col">season_no</text>
+    <text x="1960" y="211" class="typ" text-anchor="end">SMALLINT</text>
+    <rect x="1681" y="218" width="288" height="22" class="zebra"/>
+    <text x="1738" y="233" class="col">episode_no</text>
+    <text x="1960" y="233" class="typ" text-anchor="end">SMALLINT</text>
+    <text x="1738" y="255" class="col">episode_title</text>
+    <text x="1960" y="255" class="typ" text-anchor="end">VARCHAR(200)</text>
+    <rect x="1681" y="262" width="288" height="22" class="zebra"/>
+    <text x="1738" y="277" class="col">runtime_min</text>
+    <text x="1960" y="277" class="typ" text-anchor="end">SMALLINT</text>
+    <text x="1738" y="299" class="col">release_date</text>
+    <text x="1960" y="299" class="typ" text-anchor="end">DATE</text>
+    <line x1="1681" y1="308" x2="1969" y2="308" class="sep"/>
+    <text x="1690" y="321" class="note">UNIQUE (title_id, season_no, episode_no)</text>
+    <text x="1690" y="339" class="note">UNIQUE (episode_id, title_id)</text>
+  </g>
+  <!-- table: GENRES -->
+  <g id="GENRES">
+    <rect x="1680" y="460" width="290" height="84" rx="5" class="box"/>
+    <path d="M1680,492 V465 a5,5 0 0 1 5,-5 H1965 a5,5 0 0 1 5,5 V492 Z" class="head"/>
+    <text x="1692" y="481" class="th">GENRES</text>
+    <text x="1690" y="507" class="tag pk">PK</text>
+    <text x="1738" y="507" class="col key">genre_id</text>
+    <text x="1960" y="507" class="typ" text-anchor="end">SMALLINT</text>
+    <rect x="1681" y="514" width="288" height="22" class="zebra"/>
+    <text x="1690" y="529" class="tag uk">UK</text>
+    <text x="1738" y="529" class="col">genre_name</text>
+    <text x="1960" y="529" class="typ" text-anchor="end">VARCHAR(30)</text>
+  </g>
+  <text x="1415" y="80" text-anchor="middle" class="lbl">viewing_activity.episode_id (NULL when the play is a movie)</text>
+  <rect x="1680" y="640" width="290" height="212" rx="8" fill="#eef2ff" stroke="#c7d2fe" stroke-width="1.2"/>
+  <text x="1696" y="666" class="lh">Legend</text>
+  <line x1="1696" y1="694" x2="1760" y2="694" class="rel"/>
+  <line x1="1750" y1="687" x2="1750" y2="701" class="m"/>
+  <line x1="1745" y1="687" x2="1745" y2="701" class="m"/>
+  <text x="1776" y="698" class="lt">exactly one (parent side)</text>
+  <line x1="1696" y1="722" x2="1760" y2="722" class="rel"/>
+  <line x1="1750" y1="715" x2="1750" y2="729" class="m"/>
+  <circle cx="1741" cy="722" r="4.5" class="c"/>
+  <text x="1776" y="726" class="lt">zero or one</text>
+  <line x1="1696" y1="750" x2="1760" y2="750" class="rel"/>
+  <line x1="1746" y1="750" x2="1760" y2="743" class="m"/>
+  <line x1="1746" y1="750" x2="1760" y2="757" class="m"/>
+  <line x1="1746" y1="750" x2="1760" y2="750" class="m"/>
+  <line x1="1740" y1="743" x2="1740" y2="757" class="m"/>
+  <text x="1776" y="754" class="lt">one or many</text>
+  <line x1="1696" y1="778" x2="1760" y2="778" class="rel"/>
+  <line x1="1746" y1="778" x2="1760" y2="771" class="m"/>
+  <line x1="1746" y1="778" x2="1760" y2="785" class="m"/>
+  <line x1="1746" y1="778" x2="1760" y2="778" class="m"/>
+  <circle cx="1739" cy="778" r="4.5" class="c"/>
+  <text x="1776" y="782" class="lt">zero or many</text>
+  <text x="1696" y="816" class="lt"><tspan class="pk" font-weight="700">PK</tspan> primary key · <tspan class="fk" font-weight="700">FK</tspan> foreign key · <tspan class="uk" font-weight="700">UK</tspan> unique</text>
+  <text x="1696" y="836" class="lt">NULL = column may be empty</text>
+  <text x="40" y="894" class="sub">Built from sql/01_schema.sql · A relation line runs from the parent table (the "one" side) to the child table that holds the foreign key.</text>
 </svg>
