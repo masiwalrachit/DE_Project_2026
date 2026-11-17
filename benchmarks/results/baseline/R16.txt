@@ -1,0 +1,132 @@
+=== R16 run 1 ===
+Sort  (cost=41782.32..41949.32 rows=66800 width=22) (actual time=271.869..271.879 rows=22.00 loops=1)
+  Sort Key: (count(DISTINCT v.profile_id)) DESC
+  Sort Method: quicksort  Memory: 26kB
+  Buffers: shared hit=2613, temp read=835 written=838
+  ->  GroupAggregate  (cost=31252.09..36429.11 rows=66800 width=22) (actual time=216.459..271.846 rows=22.00 loops=1)
+        Group Key: pr.account_id, (date_trunc('hour'::text, v.started_at)), pl.max_streams
+        Filter: (count(DISTINCT v.profile_id) > pl.max_streams)
+        Rows Removed by Filter: 187065
+        Buffers: shared hit=2610, temp read=835 written=838
+        ->  Sort  (cost=31252.09..31753.09 rows=200401 width=18) (actual time=214.068..232.855 rows=200401.00 loops=1)
+              Sort Key: pr.account_id, (date_trunc('hour'::text, v.started_at)), pl.max_streams, v.profile_id
+              Sort Method: external merge  Disk: 6680kB
+              Buffers: shared hit=2610, temp read=835 written=838
+              ->  Hash Join  (cost=3251.09..9491.75 rows=200401 width=18) (actual time=16.331..154.922 rows=200401.00 loops=1)
+                    Hash Cond: (a.plan_id = pl.plan_id)
+                    Buffers: shared hit=2601
+                    ->  Hash Join  (cost=3250.00..7906.24 rows=200401 width=18) (actual time=16.282..113.570 rows=200401.00 loops=1)
+                          Hash Cond: (pr.account_id = a.account_id)
+                          Buffers: shared hit=2600
+                          ->  Hash Join  (cost=2335.50..6465.60 rows=200401 width=16) (actual time=11.767..74.652 rows=200401.00 loops=1)
+                                Hash Cond: (v.profile_id = pr.profile_id)
+                                Buffers: shared hit=2248
+                                ->  Seq Scan on viewing_activity v  (cost=0.00..3604.01 rows=200401 width=12) (actual time=0.005..12.346 rows=200401.00 loops=1)
+                                      Buffers: shared hit=1600
+                                ->  Hash  (cost=1398.00..1398.00 rows=75000 width=8) (actual time=11.632..11.632 rows=75000.00 loops=1)
+                                      Buckets: 131072  Batches: 1  Memory Usage: 3954kB
+                                      Buffers: shared hit=648
+                                      ->  Seq Scan on profiles pr  (cost=0.00..1398.00 rows=75000 width=8) (actual time=0.003..5.625 rows=75000.00 loops=1)
+                                            Buffers: shared hit=648
+                          ->  Hash  (cost=602.00..602.00 rows=25000 width=6) (actual time=4.467..4.467 rows=25000.00 loops=1)
+                                Buckets: 32768  Batches: 1  Memory Usage: 1184kB
+                                Buffers: shared hit=352
+                                ->  Seq Scan on accounts a  (cost=0.00..602.00 rows=25000 width=6) (actual time=0.005..2.506 rows=25000.00 loops=1)
+                                      Buffers: shared hit=352
+                    ->  Hash  (cost=1.04..1.04 rows=4 width=4) (actual time=0.008..0.008 rows=4.00 loops=1)
+                          Buckets: 1024  Batches: 1  Memory Usage: 9kB
+                          Buffers: shared hit=1
+                          ->  Seq Scan on plans pl  (cost=0.00..1.04 rows=4 width=4) (actual time=0.003..0.004 rows=4.00 loops=1)
+                                Buffers: shared hit=1
+Planning:
+  Buffers: shared hit=311
+Planning Time: 0.909 ms
+Execution Time: 273.769 ms
+=== R16 run 2 ===
+Sort  (cost=41782.32..41949.32 rows=66800 width=22) (actual time=262.411..262.419 rows=22.00 loops=1)
+  Sort Key: (count(DISTINCT v.profile_id)) DESC
+  Sort Method: quicksort  Memory: 26kB
+  Buffers: shared hit=2613, temp read=835 written=838
+  ->  GroupAggregate  (cost=31252.09..36429.11 rows=66800 width=22) (actual time=206.386..262.397 rows=22.00 loops=1)
+        Group Key: pr.account_id, (date_trunc('hour'::text, v.started_at)), pl.max_streams
+        Filter: (count(DISTINCT v.profile_id) > pl.max_streams)
+        Rows Removed by Filter: 187065
+        Buffers: shared hit=2610, temp read=835 written=838
+        ->  Sort  (cost=31252.09..31753.09 rows=200401 width=18) (actual time=203.988..222.982 rows=200401.00 loops=1)
+              Sort Key: pr.account_id, (date_trunc('hour'::text, v.started_at)), pl.max_streams, v.profile_id
+              Sort Method: external merge  Disk: 6680kB
+              Buffers: shared hit=2610, temp read=835 written=838
+              ->  Hash Join  (cost=3251.09..9491.75 rows=200401 width=18) (actual time=16.854..149.950 rows=200401.00 loops=1)
+                    Hash Cond: (a.plan_id = pl.plan_id)
+                    Buffers: shared hit=2601
+                    ->  Hash Join  (cost=3250.00..7906.24 rows=200401 width=18) (actual time=16.830..109.049 rows=200401.00 loops=1)
+                          Hash Cond: (pr.account_id = a.account_id)
+                          Buffers: shared hit=2600
+                          ->  Hash Join  (cost=2335.50..6465.60 rows=200401 width=16) (actual time=12.235..72.280 rows=200401.00 loops=1)
+                                Hash Cond: (v.profile_id = pr.profile_id)
+                                Buffers: shared hit=2248
+                                ->  Seq Scan on viewing_activity v  (cost=0.00..3604.01 rows=200401 width=12) (actual time=0.005..12.701 rows=200401.00 loops=1)
+                                      Buffers: shared hit=1600
+                                ->  Hash  (cost=1398.00..1398.00 rows=75000 width=8) (actual time=12.069..12.072 rows=75000.00 loops=1)
+                                      Buckets: 131072  Batches: 1  Memory Usage: 3954kB
+                                      Buffers: shared hit=648
+                                      ->  Seq Scan on profiles pr  (cost=0.00..1398.00 rows=75000 width=8) (actual time=0.004..5.994 rows=75000.00 loops=1)
+                                            Buffers: shared hit=648
+                          ->  Hash  (cost=602.00..602.00 rows=25000 width=6) (actual time=4.560..4.560 rows=25000.00 loops=1)
+                                Buckets: 32768  Batches: 1  Memory Usage: 1184kB
+                                Buffers: shared hit=352
+                                ->  Seq Scan on accounts a  (cost=0.00..602.00 rows=25000 width=6) (actual time=0.005..2.622 rows=25000.00 loops=1)
+                                      Buffers: shared hit=352
+                    ->  Hash  (cost=1.04..1.04 rows=4 width=4) (actual time=0.008..0.008 rows=4.00 loops=1)
+                          Buckets: 1024  Batches: 1  Memory Usage: 9kB
+                          Buffers: shared hit=1
+                          ->  Seq Scan on plans pl  (cost=0.00..1.04 rows=4 width=4) (actual time=0.004..0.004 rows=4.00 loops=1)
+                                Buffers: shared hit=1
+Planning:
+  Buffers: shared hit=311
+Planning Time: 1.006 ms
+Execution Time: 266.087 ms
+=== R16 run 3 ===
+Sort  (cost=41782.32..41949.32 rows=66800 width=22) (actual time=262.364..262.374 rows=22.00 loops=1)
+  Sort Key: (count(DISTINCT v.profile_id)) DESC
+  Sort Method: quicksort  Memory: 26kB
+  Buffers: shared hit=2613, temp read=835 written=838
+  ->  GroupAggregate  (cost=31252.09..36429.11 rows=66800 width=22) (actual time=207.497..262.351 rows=22.00 loops=1)
+        Group Key: pr.account_id, (date_trunc('hour'::text, v.started_at)), pl.max_streams
+        Filter: (count(DISTINCT v.profile_id) > pl.max_streams)
+        Rows Removed by Filter: 187065
+        Buffers: shared hit=2610, temp read=835 written=838
+        ->  Sort  (cost=31252.09..31753.09 rows=200401 width=18) (actual time=205.101..223.388 rows=200401.00 loops=1)
+              Sort Key: pr.account_id, (date_trunc('hour'::text, v.started_at)), pl.max_streams, v.profile_id
+              Sort Method: external merge  Disk: 6680kB
+              Buffers: shared hit=2610, temp read=835 written=838
+              ->  Hash Join  (cost=3251.09..9491.75 rows=200401 width=18) (actual time=17.937..151.174 rows=200401.00 loops=1)
+                    Hash Cond: (a.plan_id = pl.plan_id)
+                    Buffers: shared hit=2601
+                    ->  Hash Join  (cost=3250.00..7906.24 rows=200401 width=18) (actual time=17.904..110.397 rows=200401.00 loops=1)
+                          Hash Cond: (pr.account_id = a.account_id)
+                          Buffers: shared hit=2600
+                          ->  Hash Join  (cost=2335.50..6465.60 rows=200401 width=16) (actual time=12.969..73.147 rows=200401.00 loops=1)
+                                Hash Cond: (v.profile_id = pr.profile_id)
+                                Buffers: shared hit=2248
+                                ->  Seq Scan on viewing_activity v  (cost=0.00..3604.01 rows=200401 width=12) (actual time=0.006..12.497 rows=200401.00 loops=1)
+                                      Buffers: shared hit=1600
+                                ->  Hash  (cost=1398.00..1398.00 rows=75000 width=8) (actual time=12.788..12.789 rows=75000.00 loops=1)
+                                      Buckets: 131072  Batches: 1  Memory Usage: 3954kB
+                                      Buffers: shared hit=648
+                                      ->  Seq Scan on profiles pr  (cost=0.00..1398.00 rows=75000 width=8) (actual time=0.006..6.222 rows=75000.00 loops=1)
+                                            Buffers: shared hit=648
+                          ->  Hash  (cost=602.00..602.00 rows=25000 width=6) (actual time=4.894..4.895 rows=25000.00 loops=1)
+                                Buckets: 32768  Batches: 1  Memory Usage: 1184kB
+                                Buffers: shared hit=352
+                                ->  Seq Scan on accounts a  (cost=0.00..602.00 rows=25000 width=6) (actual time=0.007..2.909 rows=25000.00 loops=1)
+                                      Buffers: shared hit=352
+                    ->  Hash  (cost=1.04..1.04 rows=4 width=4) (actual time=0.010..0.011 rows=4.00 loops=1)
+                          Buckets: 1024  Batches: 1  Memory Usage: 9kB
+                          Buffers: shared hit=1
+                          ->  Seq Scan on plans pl  (cost=0.00..1.04 rows=4 width=4) (actual time=0.004..0.004 rows=4.00 loops=1)
+                                Buffers: shared hit=1
+Planning:
+  Buffers: shared hit=311
+Planning Time: 1.014 ms
+Execution Time: 265.471 ms

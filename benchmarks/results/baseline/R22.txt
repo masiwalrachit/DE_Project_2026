@@ -1,0 +1,39 @@
+=== R22 run 1 ===
+Sort  (cost=94.55..94.69 rows=54 width=33) (actual time=0.422..0.425 rows=54.00 loops=1)
+  Sort Key: leaving_on
+  Sort Method: quicksort  Memory: 27kB
+  Buffers: shared hit=51
+  ->  Seq Scan on titles  (cost=0.00..93.00 rows=54 width=33) (actual time=0.018..0.392 rows=54.00 loops=1)
+        Filter: ((leaving_on >= '2026-07-01'::date) AND (leaving_on <= '2026-07-31'::date))
+        Rows Removed by Filter: 2946
+        Buffers: shared hit=48
+Planning:
+  Buffers: shared hit=88
+Planning Time: 0.323 ms
+Execution Time: 0.478 ms
+=== R22 run 2 ===
+Sort  (cost=94.55..94.69 rows=54 width=33) (actual time=0.513..0.516 rows=54.00 loops=1)
+  Sort Key: leaving_on
+  Sort Method: quicksort  Memory: 27kB
+  Buffers: shared hit=51
+  ->  Seq Scan on titles  (cost=0.00..93.00 rows=54 width=33) (actual time=0.020..0.482 rows=54.00 loops=1)
+        Filter: ((leaving_on >= '2026-07-01'::date) AND (leaving_on <= '2026-07-31'::date))
+        Rows Removed by Filter: 2946
+        Buffers: shared hit=48
+Planning:
+  Buffers: shared hit=88
+Planning Time: 0.491 ms
+Execution Time: 0.574 ms
+=== R22 run 3 ===
+Sort  (cost=94.55..94.69 rows=54 width=33) (actual time=0.461..0.465 rows=54.00 loops=1)
+  Sort Key: leaving_on
+  Sort Method: quicksort  Memory: 27kB
+  Buffers: shared hit=51
+  ->  Seq Scan on titles  (cost=0.00..93.00 rows=54 width=33) (actual time=0.021..0.430 rows=54.00 loops=1)
+        Filter: ((leaving_on >= '2026-07-01'::date) AND (leaving_on <= '2026-07-31'::date))
+        Rows Removed by Filter: 2946
+        Buffers: shared hit=48
+Planning:
+  Buffers: shared hit=88
+Planning Time: 0.495 ms
+Execution Time: 0.520 ms

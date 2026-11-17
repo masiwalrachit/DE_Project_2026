@@ -1,0 +1,48 @@
+=== R12 run 1 ===
+GroupAggregate  (cost=789.87..790.36 rows=15 width=48) (actual time=2.582..2.640 rows=6.00 loops=1)
+  Group Key: (date_trunc('month'::text, (cancelled_on)::timestamp with time zone))
+  Buffers: shared hit=355
+  ->  Sort  (cost=789.87..789.91 rows=15 width=16) (actual time=2.560..2.581 rows=597.00 loops=1)
+        Sort Key: (date_trunc('month'::text, (cancelled_on)::timestamp with time zone))
+        Sort Method: quicksort  Memory: 43kB
+        Buffers: shared hit=355
+        ->  Seq Scan on accounts  (cost=0.00..789.58 rows=15 width=16) (actual time=0.018..2.494 rows=597.00 loops=1)
+              Filter: (((status)::text = 'CANCELLED'::text) AND (EXTRACT(year FROM cancelled_on) = '2026'::numeric))
+              Rows Removed by Filter: 24403
+              Buffers: shared hit=352
+Planning:
+  Buffers: shared hit=149
+Planning Time: 0.426 ms
+Execution Time: 2.678 ms
+=== R12 run 2 ===
+GroupAggregate  (cost=789.87..790.36 rows=15 width=48) (actual time=2.588..2.648 rows=6.00 loops=1)
+  Group Key: (date_trunc('month'::text, (cancelled_on)::timestamp with time zone))
+  Buffers: shared hit=355
+  ->  Sort  (cost=789.87..789.91 rows=15 width=16) (actual time=2.567..2.588 rows=597.00 loops=1)
+        Sort Key: (date_trunc('month'::text, (cancelled_on)::timestamp with time zone))
+        Sort Method: quicksort  Memory: 43kB
+        Buffers: shared hit=355
+        ->  Seq Scan on accounts  (cost=0.00..789.58 rows=15 width=16) (actual time=0.016..2.504 rows=597.00 loops=1)
+              Filter: (((status)::text = 'CANCELLED'::text) AND (EXTRACT(year FROM cancelled_on) = '2026'::numeric))
+              Rows Removed by Filter: 24403
+              Buffers: shared hit=352
+Planning:
+  Buffers: shared hit=149
+Planning Time: 0.512 ms
+Execution Time: 2.681 ms
+=== R12 run 3 ===
+GroupAggregate  (cost=789.87..790.36 rows=15 width=48) (actual time=2.632..2.688 rows=6.00 loops=1)
+  Group Key: (date_trunc('month'::text, (cancelled_on)::timestamp with time zone))
+  Buffers: shared hit=355
+  ->  Sort  (cost=789.87..789.91 rows=15 width=16) (actual time=2.609..2.631 rows=597.00 loops=1)
+        Sort Key: (date_trunc('month'::text, (cancelled_on)::timestamp with time zone))
+        Sort Method: quicksort  Memory: 43kB
+        Buffers: shared hit=355
+        ->  Seq Scan on accounts  (cost=0.00..789.58 rows=15 width=16) (actual time=0.017..2.544 rows=597.00 loops=1)
+              Filter: (((status)::text = 'CANCELLED'::text) AND (EXTRACT(year FROM cancelled_on) = '2026'::numeric))
+              Rows Removed by Filter: 24403
+              Buffers: shared hit=352
+Planning:
+  Buffers: shared hit=149
+Planning Time: 0.385 ms
+Execution Time: 2.732 ms

@@ -1,0 +1,42 @@
+=== R13 run 1 ===
+Index Scan using uq_episodes_series_season_ep on episodes e  (cost=4105.30..4143.41 rows=9 width=8) (actual time=34.720..34.721 rows=0.00 loops=1)
+  Index Cond: (title_id = 2523)
+  Filter: (NOT (ANY (episode_id = (hashed SubPlan 1).col1)))
+  Rows Removed by Filter: 31
+  Index Searches: 1
+  Buffers: shared hit=1603
+  SubPlan 1
+    ->  Seq Scan on viewing_activity v  (cost=0.00..3604.01 rows=200401 width=4) (actual time=0.010..14.014 rows=200401.00 loops=1)
+          Buffers: shared hit=1600
+Planning:
+  Buffers: shared hit=130
+Planning Time: 0.410 ms
+Execution Time: 34.775 ms
+=== R13 run 2 ===
+Index Scan using uq_episodes_series_season_ep on episodes e  (cost=4105.30..4143.41 rows=9 width=8) (actual time=35.937..35.938 rows=0.00 loops=1)
+  Index Cond: (title_id = 2523)
+  Filter: (NOT (ANY (episode_id = (hashed SubPlan 1).col1)))
+  Rows Removed by Filter: 31
+  Index Searches: 1
+  Buffers: shared hit=1603
+  SubPlan 1
+    ->  Seq Scan on viewing_activity v  (cost=0.00..3604.01 rows=200401 width=4) (actual time=0.009..14.571 rows=200401.00 loops=1)
+          Buffers: shared hit=1600
+Planning:
+  Buffers: shared hit=130
+Planning Time: 0.445 ms
+Execution Time: 35.997 ms
+=== R13 run 3 ===
+Index Scan using uq_episodes_series_season_ep on episodes e  (cost=4105.30..4143.41 rows=9 width=8) (actual time=35.455..35.456 rows=0.00 loops=1)
+  Index Cond: (title_id = 2523)
+  Filter: (NOT (ANY (episode_id = (hashed SubPlan 1).col1)))
+  Rows Removed by Filter: 31
+  Index Searches: 1
+  Buffers: shared hit=1603
+  SubPlan 1
+    ->  Seq Scan on viewing_activity v  (cost=0.00..3604.01 rows=200401 width=4) (actual time=0.009..14.838 rows=200401.00 loops=1)
+          Buffers: shared hit=1600
+Planning:
+  Buffers: shared hit=130
+Planning Time: 0.505 ms
+Execution Time: 35.524 ms
