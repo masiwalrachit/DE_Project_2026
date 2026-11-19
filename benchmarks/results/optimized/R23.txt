@@ -1,0 +1,55 @@
+=== R23 run 1 ===
+Limit  (cost=5541.57..5542.49 rows=25 width=24) (actual time=43.655..43.659 rows=25.00 loops=1)
+  Buffers: shared hit=367 read=454
+  ->  Index Only Scan Backward using idx_va_started_cover on viewing_activity  (cost=0.42..7403.44 rows=200401 width=24) (actual time=0.155..38.271 rows=150025.00 loops=1)
+        Heap Fetches: 82
+        Index Searches: 1
+        Buffers: shared hit=367 read=454
+Planning:
+  Buffers: shared hit=148
+Planning Time: 1.290 ms
+Execution Time: 43.704 ms
+=== R23 run 2 ===
+Limit  (cost=5541.57..5542.49 rows=25 width=24) (actual time=18.537..18.541 rows=25.00 loops=1)
+  Buffers: shared hit=821
+  ->  Index Only Scan Backward using idx_va_started_cover on viewing_activity  (cost=0.42..7403.44 rows=200401 width=24) (actual time=0.052..13.516 rows=150025.00 loops=1)
+        Heap Fetches: 82
+        Index Searches: 1
+        Buffers: shared hit=821
+Planning:
+  Buffers: shared hit=148
+Planning Time: 0.481 ms
+Execution Time: 18.561 ms
+=== R23 run 3 ===
+Limit  (cost=5541.57..5542.49 rows=25 width=24) (actual time=20.102..20.105 rows=25.00 loops=1)
+  Buffers: shared hit=821
+  ->  Index Only Scan Backward using idx_va_started_cover on viewing_activity  (cost=0.42..7403.44 rows=200401 width=24) (actual time=0.057..15.191 rows=150025.00 loops=1)
+        Heap Fetches: 82
+        Index Searches: 1
+        Buffers: shared hit=821
+Planning:
+  Buffers: shared hit=148
+Planning Time: 0.529 ms
+Execution Time: 20.125 ms
+=== R23 run 4 ===
+Limit  (cost=5541.57..5542.49 rows=25 width=24) (actual time=19.719..19.723 rows=25.00 loops=1)
+  Buffers: shared hit=821
+  ->  Index Only Scan Backward using idx_va_started_cover on viewing_activity  (cost=0.42..7403.44 rows=200401 width=24) (actual time=0.062..14.789 rows=150025.00 loops=1)
+        Heap Fetches: 82
+        Index Searches: 1
+        Buffers: shared hit=821
+Planning:
+  Buffers: shared hit=148
+Planning Time: 0.551 ms
+Execution Time: 19.746 ms
+=== R23 run 5 ===
+Limit  (cost=5541.57..5542.49 rows=25 width=24) (actual time=19.747..19.750 rows=25.00 loops=1)
+  Buffers: shared hit=821
+  ->  Index Only Scan Backward using idx_va_started_cover on viewing_activity  (cost=0.42..7403.44 rows=200401 width=24) (actual time=0.060..14.783 rows=150025.00 loops=1)
+        Heap Fetches: 82
+        Index Searches: 1
+        Buffers: shared hit=821
+Planning:
+  Buffers: shared hit=148
+Planning Time: 0.549 ms
+Execution Time: 19.775 ms

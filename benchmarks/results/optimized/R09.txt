@@ -1,0 +1,230 @@
+=== R09 run 1 ===
+Sort  (cost=5795.46..5795.50 rows=15 width=48) (actual time=38.901..41.658 rows=15.00 loops=1)
+  Sort Key: (round(((100.0 * (count(*) FILTER (WHERE v.completed))::numeric) / (count(*))::numeric), 1)) DESC
+  Sort Method: quicksort  Memory: 25kB
+  Buffers: shared hit=6444 read=303
+  ->  Finalize GroupAggregate  (cost=5791.67..5795.17 rows=15 width=48) (actual time=38.858..41.632 rows=15.00 loops=1)
+        Group Key: g.genre_name
+        Buffers: shared hit=6441 read=303
+        ->  Gather Merge  (cost=5791.67..5794.64 rows=26 width=24) (actual time=38.832..41.598 rows=30.00 loops=1)
+              Workers Planned: 1
+              Workers Launched: 1
+              Buffers: shared hit=6441 read=303
+              ->  Sort  (cost=4791.66..4791.70 rows=15 width=24) (actual time=35.332..35.336 rows=15.00 loops=2)
+                    Sort Key: g.genre_name
+                    Sort Method: quicksort  Memory: 25kB
+                    Buffers: shared hit=6441 read=303
+                    Worker 0:  Sort Method: quicksort  Memory: 25kB
+                    ->  Partial HashAggregate  (cost=4791.22..4791.37 rows=15 width=24) (actual time=35.240..35.245 rows=15.00 loops=2)
+                          Group Key: g.genre_name
+                          Batches: 1  Memory Usage: 32kB
+                          Buffers: shared hit=6433 read=303
+                          Worker 0:  Batches: 1  Memory Usage: 32kB
+                          ->  Hash Join  (cost=183.01..4214.55 rows=76890 width=9) (actual time=3.193..25.054 rows=65683.50 loops=2)
+                                Hash Cond: (v.title_id = tg.title_id)
+                                Buffers: shared hit=6433 read=303
+                                ->  Parallel Index Scan using idx_va_started_cover on viewing_activity v  (cost=0.42..3020.84 rows=38756 width=5) (actual time=0.735..12.458 rows=33273.00 loops=2)
+                                      Index Cond: ((started_at >= '2026-01-01 00:00:00+05:30'::timestamp with time zone) AND (started_at < '2027-01-01 00:00:00+05:30'::timestamp with time zone))
+                                      Index Searches: 1
+                                      Buffers: shared hit=6357 read=303
+                                ->  Hash  (cost=108.05..108.05 rows=5963 width=12) (actual time=2.425..2.428 rows=5963.00 loops=2)
+                                      Buckets: 8192  Batches: 1  Memory Usage: 325kB
+                                      Buffers: shared hit=76
+                                      ->  Hash Join  (cost=1.34..108.05 rows=5963 width=12) (actual time=0.149..1.625 rows=5963.00 loops=2)
+                                            Hash Cond: (tg.genre_id = g.genre_id)
+                                            Buffers: shared hit=76
+                                            ->  Seq Scan on title_genres tg  (cost=0.00..86.63 rows=5963 width=6) (actual time=0.076..0.484 rows=5963.00 loops=2)
+                                                  Buffers: shared hit=74
+                                            ->  Hash  (cost=1.15..1.15 rows=15 width=10) (actual time=0.062..0.064 rows=15.00 loops=2)
+                                                  Buckets: 1024  Batches: 1  Memory Usage: 9kB
+                                                  Buffers: shared hit=2
+                                                  ->  Seq Scan on genres g  (cost=0.00..1.15 rows=15 width=10) (actual time=0.049..0.051 rows=15.00 loops=2)
+                                                        Buffers: shared hit=2
+Planning:
+  Buffers: shared hit=463
+Planning Time: 1.959 ms
+Execution Time: 41.830 ms
+=== R09 run 2 ===
+Sort  (cost=5795.46..5795.50 rows=15 width=48) (actual time=25.580..26.644 rows=15.00 loops=1)
+  Sort Key: (round(((100.0 * (count(*) FILTER (WHERE v.completed))::numeric) / (count(*))::numeric), 1)) DESC
+  Sort Method: quicksort  Memory: 25kB
+  Buffers: shared hit=6738
+  ->  Finalize GroupAggregate  (cost=5791.67..5795.17 rows=15 width=48) (actual time=25.548..26.628 rows=15.00 loops=1)
+        Group Key: g.genre_name
+        Buffers: shared hit=6735
+        ->  Gather Merge  (cost=5791.67..5794.64 rows=26 width=24) (actual time=25.532..26.603 rows=30.00 loops=1)
+              Workers Planned: 1
+              Workers Launched: 1
+              Buffers: shared hit=6735
+              ->  Sort  (cost=4791.66..4791.70 rows=15 width=24) (actual time=23.449..23.451 rows=15.00 loops=2)
+                    Sort Key: g.genre_name
+                    Sort Method: quicksort  Memory: 25kB
+                    Buffers: shared hit=6735
+                    Worker 0:  Sort Method: quicksort  Memory: 25kB
+                    ->  Partial HashAggregate  (cost=4791.22..4791.37 rows=15 width=24) (actual time=23.371..23.374 rows=15.00 loops=2)
+                          Group Key: g.genre_name
+                          Batches: 1  Memory Usage: 32kB
+                          Buffers: shared hit=6727
+                          Worker 0:  Batches: 1  Memory Usage: 32kB
+                          ->  Hash Join  (cost=183.01..4214.55 rows=76890 width=9) (actual time=1.811..14.618 rows=65683.50 loops=2)
+                                Hash Cond: (v.title_id = tg.title_id)
+                                Buffers: shared hit=6727
+                                ->  Parallel Index Scan using idx_va_started_cover on viewing_activity v  (cost=0.42..3020.84 rows=38756 width=5) (actual time=0.022..4.636 rows=33273.00 loops=2)
+                                      Index Cond: ((started_at >= '2026-01-01 00:00:00+05:30'::timestamp with time zone) AND (started_at < '2027-01-01 00:00:00+05:30'::timestamp with time zone))
+                                      Index Searches: 1
+                                      Buffers: shared hit=6651
+                                ->  Hash  (cost=108.05..108.05 rows=5963 width=12) (actual time=1.776..1.777 rows=5963.00 loops=2)
+                                      Buckets: 8192  Batches: 1  Memory Usage: 325kB
+                                      Buffers: shared hit=76
+                                      ->  Hash Join  (cost=1.34..108.05 rows=5963 width=12) (actual time=0.060..1.167 rows=5963.00 loops=2)
+                                            Hash Cond: (tg.genre_id = g.genre_id)
+                                            Buffers: shared hit=76
+                                            ->  Seq Scan on title_genres tg  (cost=0.00..86.63 rows=5963 width=6) (actual time=0.032..0.298 rows=5963.00 loops=2)
+                                                  Buffers: shared hit=74
+                                            ->  Hash  (cost=1.15..1.15 rows=15 width=10) (actual time=0.022..0.022 rows=15.00 loops=2)
+                                                  Buckets: 1024  Batches: 1  Memory Usage: 9kB
+                                                  Buffers: shared hit=2
+                                                  ->  Seq Scan on genres g  (cost=0.00..1.15 rows=15 width=10) (actual time=0.015..0.016 rows=15.00 loops=2)
+                                                        Buffers: shared hit=2
+Planning:
+  Buffers: shared hit=463
+Planning Time: 1.116 ms
+Execution Time: 26.817 ms
+=== R09 run 3 ===
+Sort  (cost=5795.46..5795.50 rows=15 width=48) (actual time=25.140..26.165 rows=15.00 loops=1)
+  Sort Key: (round(((100.0 * (count(*) FILTER (WHERE v.completed))::numeric) / (count(*))::numeric), 1)) DESC
+  Sort Method: quicksort  Memory: 25kB
+  Buffers: shared hit=6740
+  ->  Finalize GroupAggregate  (cost=5791.67..5795.17 rows=15 width=48) (actual time=25.109..26.150 rows=15.00 loops=1)
+        Group Key: g.genre_name
+        Buffers: shared hit=6737
+        ->  Gather Merge  (cost=5791.67..5794.64 rows=26 width=24) (actual time=25.089..26.122 rows=30.00 loops=1)
+              Workers Planned: 1
+              Workers Launched: 1
+              Buffers: shared hit=6737
+              ->  Sort  (cost=4791.66..4791.70 rows=15 width=24) (actual time=23.454..23.457 rows=15.00 loops=2)
+                    Sort Key: g.genre_name
+                    Sort Method: quicksort  Memory: 25kB
+                    Buffers: shared hit=6737
+                    Worker 0:  Sort Method: quicksort  Memory: 25kB
+                    ->  Partial HashAggregate  (cost=4791.22..4791.37 rows=15 width=24) (actual time=23.392..23.395 rows=15.00 loops=2)
+                          Group Key: g.genre_name
+                          Batches: 1  Memory Usage: 32kB
+                          Buffers: shared hit=6729
+                          Worker 0:  Batches: 1  Memory Usage: 32kB
+                          ->  Hash Join  (cost=183.01..4214.55 rows=76890 width=9) (actual time=1.761..14.321 rows=65683.50 loops=2)
+                                Hash Cond: (v.title_id = tg.title_id)
+                                Buffers: shared hit=6729
+                                ->  Parallel Index Scan using idx_va_started_cover on viewing_activity v  (cost=0.42..3020.84 rows=38756 width=5) (actual time=0.014..4.326 rows=33273.00 loops=2)
+                                      Index Cond: ((started_at >= '2026-01-01 00:00:00+05:30'::timestamp with time zone) AND (started_at < '2027-01-01 00:00:00+05:30'::timestamp with time zone))
+                                      Index Searches: 1
+                                      Buffers: shared hit=6653
+                                ->  Hash  (cost=108.05..108.05 rows=5963 width=12) (actual time=1.734..1.735 rows=5963.00 loops=2)
+                                      Buckets: 8192  Batches: 1  Memory Usage: 325kB
+                                      Buffers: shared hit=76
+                                      ->  Hash Join  (cost=1.34..108.05 rows=5963 width=12) (actual time=0.058..1.147 rows=5963.00 loops=2)
+                                            Hash Cond: (tg.genre_id = g.genre_id)
+                                            Buffers: shared hit=76
+                                            ->  Seq Scan on title_genres tg  (cost=0.00..86.63 rows=5963 width=6) (actual time=0.030..0.289 rows=5963.00 loops=2)
+                                                  Buffers: shared hit=74
+                                            ->  Hash  (cost=1.15..1.15 rows=15 width=10) (actual time=0.021..0.021 rows=15.00 loops=2)
+                                                  Buckets: 1024  Batches: 1  Memory Usage: 9kB
+                                                  Buffers: shared hit=2
+                                                  ->  Seq Scan on genres g  (cost=0.00..1.15 rows=15 width=10) (actual time=0.014..0.015 rows=15.00 loops=2)
+                                                        Buffers: shared hit=2
+Planning:
+  Buffers: shared hit=463
+Planning Time: 0.998 ms
+Execution Time: 26.256 ms
+=== R09 run 4 ===
+Sort  (cost=5795.46..5795.50 rows=15 width=48) (actual time=25.221..26.323 rows=15.00 loops=1)
+  Sort Key: (round(((100.0 * (count(*) FILTER (WHERE v.completed))::numeric) / (count(*))::numeric), 1)) DESC
+  Sort Method: quicksort  Memory: 25kB
+  Buffers: shared hit=6738
+  ->  Finalize GroupAggregate  (cost=5791.67..5795.17 rows=15 width=48) (actual time=25.173..26.299 rows=15.00 loops=1)
+        Group Key: g.genre_name
+        Buffers: shared hit=6735
+        ->  Gather Merge  (cost=5791.67..5794.64 rows=26 width=24) (actual time=25.159..26.270 rows=30.00 loops=1)
+              Workers Planned: 1
+              Workers Launched: 1
+              Buffers: shared hit=6735
+              ->  Sort  (cost=4791.66..4791.70 rows=15 width=24) (actual time=22.713..22.714 rows=15.00 loops=2)
+                    Sort Key: g.genre_name
+                    Sort Method: quicksort  Memory: 25kB
+                    Buffers: shared hit=6735
+                    Worker 0:  Sort Method: quicksort  Memory: 25kB
+                    ->  Partial HashAggregate  (cost=4791.22..4791.37 rows=15 width=24) (actual time=22.654..22.656 rows=15.00 loops=2)
+                          Group Key: g.genre_name
+                          Batches: 1  Memory Usage: 32kB
+                          Buffers: shared hit=6727
+                          Worker 0:  Batches: 1  Memory Usage: 32kB
+                          ->  Hash Join  (cost=183.01..4214.55 rows=76890 width=9) (actual time=1.774..14.256 rows=65683.50 loops=2)
+                                Hash Cond: (v.title_id = tg.title_id)
+                                Buffers: shared hit=6727
+                                ->  Parallel Index Scan using idx_va_started_cover on viewing_activity v  (cost=0.42..3020.84 rows=38756 width=5) (actual time=0.014..4.363 rows=33273.00 loops=2)
+                                      Index Cond: ((started_at >= '2026-01-01 00:00:00+05:30'::timestamp with time zone) AND (started_at < '2027-01-01 00:00:00+05:30'::timestamp with time zone))
+                                      Index Searches: 1
+                                      Buffers: shared hit=6651
+                                ->  Hash  (cost=108.05..108.05 rows=5963 width=12) (actual time=1.748..1.749 rows=5963.00 loops=2)
+                                      Buckets: 8192  Batches: 1  Memory Usage: 325kB
+                                      Buffers: shared hit=76
+                                      ->  Hash Join  (cost=1.34..108.05 rows=5963 width=12) (actual time=0.071..1.171 rows=5963.00 loops=2)
+                                            Hash Cond: (tg.genre_id = g.genre_id)
+                                            Buffers: shared hit=76
+                                            ->  Seq Scan on title_genres tg  (cost=0.00..86.63 rows=5963 width=6) (actual time=0.039..0.305 rows=5963.00 loops=2)
+                                                  Buffers: shared hit=74
+                                            ->  Hash  (cost=1.15..1.15 rows=15 width=10) (actual time=0.024..0.024 rows=15.00 loops=2)
+                                                  Buckets: 1024  Batches: 1  Memory Usage: 9kB
+                                                  Buffers: shared hit=2
+                                                  ->  Seq Scan on genres g  (cost=0.00..1.15 rows=15 width=10) (actual time=0.017..0.019 rows=15.00 loops=2)
+                                                        Buffers: shared hit=2
+Planning:
+  Buffers: shared hit=463
+Planning Time: 1.015 ms
+Execution Time: 26.411 ms
+=== R09 run 5 ===
+Sort  (cost=5795.46..5795.50 rows=15 width=48) (actual time=25.073..26.337 rows=15.00 loops=1)
+  Sort Key: (round(((100.0 * (count(*) FILTER (WHERE v.completed))::numeric) / (count(*))::numeric), 1)) DESC
+  Sort Method: quicksort  Memory: 25kB
+  Buffers: shared hit=6741
+  ->  Finalize GroupAggregate  (cost=5791.67..5795.17 rows=15 width=48) (actual time=25.038..26.322 rows=15.00 loops=1)
+        Group Key: g.genre_name
+        Buffers: shared hit=6738
+        ->  Gather Merge  (cost=5791.67..5794.64 rows=26 width=24) (actual time=25.014..26.284 rows=30.00 loops=1)
+              Workers Planned: 1
+              Workers Launched: 1
+              Buffers: shared hit=6738
+              ->  Sort  (cost=4791.66..4791.70 rows=15 width=24) (actual time=22.719..22.721 rows=15.00 loops=2)
+                    Sort Key: g.genre_name
+                    Sort Method: quicksort  Memory: 25kB
+                    Buffers: shared hit=6738
+                    Worker 0:  Sort Method: quicksort  Memory: 25kB
+                    ->  Partial HashAggregate  (cost=4791.22..4791.37 rows=15 width=24) (actual time=22.664..22.666 rows=15.00 loops=2)
+                          Group Key: g.genre_name
+                          Batches: 1  Memory Usage: 32kB
+                          Buffers: shared hit=6730
+                          Worker 0:  Batches: 1  Memory Usage: 32kB
+                          ->  Hash Join  (cost=183.01..4214.55 rows=76890 width=9) (actual time=1.793..14.315 rows=65683.50 loops=2)
+                                Hash Cond: (v.title_id = tg.title_id)
+                                Buffers: shared hit=6730
+                                ->  Parallel Index Scan using idx_va_started_cover on viewing_activity v  (cost=0.42..3020.84 rows=38756 width=5) (actual time=0.025..4.391 rows=33273.00 loops=2)
+                                      Index Cond: ((started_at >= '2026-01-01 00:00:00+05:30'::timestamp with time zone) AND (started_at < '2027-01-01 00:00:00+05:30'::timestamp with time zone))
+                                      Index Searches: 1
+                                      Buffers: shared hit=6654
+                                ->  Hash  (cost=108.05..108.05 rows=5963 width=12) (actual time=1.750..1.751 rows=5963.00 loops=2)
+                                      Buckets: 8192  Batches: 1  Memory Usage: 325kB
+                                      Buffers: shared hit=76
+                                      ->  Hash Join  (cost=1.34..108.05 rows=5963 width=12) (actual time=0.060..1.155 rows=5963.00 loops=2)
+                                            Hash Cond: (tg.genre_id = g.genre_id)
+                                            Buffers: shared hit=76
+                                            ->  Seq Scan on title_genres tg  (cost=0.00..86.63 rows=5963 width=6) (actual time=0.033..0.291 rows=5963.00 loops=2)
+                                                  Buffers: shared hit=74
+                                            ->  Hash  (cost=1.15..1.15 rows=15 width=10) (actual time=0.021..0.021 rows=15.00 loops=2)
+                                                  Buckets: 1024  Batches: 1  Memory Usage: 9kB
+                                                  Buffers: shared hit=2
+                                                  ->  Seq Scan on genres g  (cost=0.00..1.15 rows=15 width=10) (actual time=0.014..0.015 rows=15.00 loops=2)
+                                                        Buffers: shared hit=2
+Planning:
+  Buffers: shared hit=463
+Planning Time: 0.999 ms
+Execution Time: 26.426 ms

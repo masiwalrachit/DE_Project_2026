@@ -1,0 +1,55 @@
+=== R07 run 1 ===
+Limit  (cost=0.29..2.63 rows=1 width=28) (actual time=0.034..0.035 rows=1.00 loops=1)
+  Buffers: shared hit=3
+  ->  Index Scan using uq_episodes_series_season_ep on episodes  (cost=0.29..26.01 rows=11 width=28) (actual time=0.032..0.033 rows=1.00 loops=1)
+        Index Cond: ((title_id = 2909) AND (ROW(season_no, episode_no) > ROW(1, 4)))
+        Index Searches: 1
+        Buffers: shared hit=3
+Planning:
+  Buffers: shared hit=124
+Planning Time: 1.173 ms
+Execution Time: 0.100 ms
+=== R07 run 2 ===
+Limit  (cost=0.29..2.63 rows=1 width=28) (actual time=0.031..0.031 rows=1.00 loops=1)
+  Buffers: shared hit=3
+  ->  Index Scan using uq_episodes_series_season_ep on episodes  (cost=0.29..26.01 rows=11 width=28) (actual time=0.029..0.029 rows=1.00 loops=1)
+        Index Cond: ((title_id = 2909) AND (ROW(season_no, episode_no) > ROW(1, 4)))
+        Index Searches: 1
+        Buffers: shared hit=3
+Planning:
+  Buffers: shared hit=124
+Planning Time: 0.915 ms
+Execution Time: 0.091 ms
+=== R07 run 3 ===
+Limit  (cost=0.29..2.63 rows=1 width=28) (actual time=0.046..0.047 rows=1.00 loops=1)
+  Buffers: shared hit=3
+  ->  Index Scan using uq_episodes_series_season_ep on episodes  (cost=0.29..26.01 rows=11 width=28) (actual time=0.044..0.044 rows=1.00 loops=1)
+        Index Cond: ((title_id = 2909) AND (ROW(season_no, episode_no) > ROW(1, 4)))
+        Index Searches: 1
+        Buffers: shared hit=3
+Planning:
+  Buffers: shared hit=124
+Planning Time: 1.056 ms
+Execution Time: 0.120 ms
+=== R07 run 4 ===
+Limit  (cost=0.29..2.63 rows=1 width=28) (actual time=0.028..0.029 rows=1.00 loops=1)
+  Buffers: shared hit=3
+  ->  Index Scan using uq_episodes_series_season_ep on episodes  (cost=0.29..26.01 rows=11 width=28) (actual time=0.026..0.027 rows=1.00 loops=1)
+        Index Cond: ((title_id = 2909) AND (ROW(season_no, episode_no) > ROW(1, 4)))
+        Index Searches: 1
+        Buffers: shared hit=3
+Planning:
+  Buffers: shared hit=124
+Planning Time: 0.700 ms
+Execution Time: 0.083 ms
+=== R07 run 5 ===
+Limit  (cost=0.29..2.63 rows=1 width=28) (actual time=0.041..0.043 rows=1.00 loops=1)
+  Buffers: shared hit=3
+  ->  Index Scan using uq_episodes_series_season_ep on episodes  (cost=0.29..26.01 rows=11 width=28) (actual time=0.038..0.039 rows=1.00 loops=1)
+        Index Cond: ((title_id = 2909) AND (ROW(season_no, episode_no) > ROW(1, 4)))
+        Index Searches: 1
+        Buffers: shared hit=3
+Planning:
+  Buffers: shared hit=124
+Planning Time: 0.704 ms
+Execution Time: 0.109 ms

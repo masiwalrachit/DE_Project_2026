@@ -1,0 +1,65 @@
+=== R24 run 1 ===
+Sort  (cost=11.87..11.88 rows=3 width=22) (actual time=0.029..0.029 rows=4.00 loops=1)
+  Sort Key: created_at
+  Sort Method: quicksort  Memory: 25kB
+  Buffers: shared hit=6
+  ->  Index Scan using uq_profiles_account_name on profiles  (cost=0.29..11.85 rows=3 width=22) (actual time=0.011..0.012 rows=4.00 loops=1)
+        Index Cond: (account_id = 1409)
+        Index Searches: 1
+        Buffers: shared hit=3
+Planning:
+  Buffers: shared hit=128
+Planning Time: 0.395 ms
+Execution Time: 0.071 ms
+=== R24 run 2 ===
+Sort  (cost=11.87..11.88 rows=3 width=22) (actual time=0.024..0.025 rows=4.00 loops=1)
+  Sort Key: created_at
+  Sort Method: quicksort  Memory: 25kB
+  Buffers: shared hit=6
+  ->  Index Scan using uq_profiles_account_name on profiles  (cost=0.29..11.85 rows=3 width=22) (actual time=0.010..0.011 rows=4.00 loops=1)
+        Index Cond: (account_id = 1409)
+        Index Searches: 1
+        Buffers: shared hit=3
+Planning:
+  Buffers: shared hit=128
+Planning Time: 0.307 ms
+Execution Time: 0.063 ms
+=== R24 run 3 ===
+Sort  (cost=11.87..11.88 rows=3 width=22) (actual time=0.025..0.025 rows=4.00 loops=1)
+  Sort Key: created_at
+  Sort Method: quicksort  Memory: 25kB
+  Buffers: shared hit=6
+  ->  Index Scan using uq_profiles_account_name on profiles  (cost=0.29..11.85 rows=3 width=22) (actual time=0.010..0.011 rows=4.00 loops=1)
+        Index Cond: (account_id = 1409)
+        Index Searches: 1
+        Buffers: shared hit=3
+Planning:
+  Buffers: shared hit=128
+Planning Time: 0.313 ms
+Execution Time: 0.064 ms
+=== R24 run 4 ===
+Sort  (cost=11.87..11.88 rows=3 width=22) (actual time=0.025..0.025 rows=4.00 loops=1)
+  Sort Key: created_at
+  Sort Method: quicksort  Memory: 25kB
+  Buffers: shared hit=6
+  ->  Index Scan using uq_profiles_account_name on profiles  (cost=0.29..11.85 rows=3 width=22) (actual time=0.010..0.011 rows=4.00 loops=1)
+        Index Cond: (account_id = 1409)
+        Index Searches: 1
+        Buffers: shared hit=3
+Planning:
+  Buffers: shared hit=128
+Planning Time: 0.310 ms
+Execution Time: 0.063 ms
+=== R24 run 5 ===
+Sort  (cost=11.87..11.88 rows=3 width=22) (actual time=0.024..0.025 rows=4.00 loops=1)
+  Sort Key: created_at
+  Sort Method: quicksort  Memory: 25kB
+  Buffers: shared hit=6
+  ->  Index Scan using uq_profiles_account_name on profiles  (cost=0.29..11.85 rows=3 width=22) (actual time=0.010..0.011 rows=4.00 loops=1)
+        Index Cond: (account_id = 1409)
+        Index Searches: 1
+        Buffers: shared hit=3
+Planning:
+  Buffers: shared hit=128
+Planning Time: 0.306 ms
+Execution Time: 0.063 ms

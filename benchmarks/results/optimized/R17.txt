@@ -1,0 +1,95 @@
+=== R17 run 1 ===
+HashAggregate  (cost=1126.61..1126.65 rows=2 width=41) (actual time=17.714..17.716 rows=2.00 loops=1)
+  Group Key: t.is_netflix_original
+  Batches: 1  Memory Usage: 32kB
+  Buffers: shared hit=292
+  ->  Hash Join  (cost=103.50..787.61 rows=33900 width=10) (actual time=0.872..14.275 rows=33900.00 loops=1)
+        Hash Cond: (r.title_id = t.title_id)
+        Buffers: shared hit=292
+        ->  Seq Scan on ratings r  (cost=0.00..595.00 rows=33900 width=13) (actual time=0.336..9.462 rows=33900.00 loops=1)
+              Buffers: shared hit=256
+        ->  Hash  (cost=66.00..66.00 rows=3000 width=5) (actual time=0.522..0.523 rows=3000.00 loops=1)
+              Buckets: 4096  Batches: 1  Memory Usage: 150kB
+              Buffers: shared hit=36
+              ->  Seq Scan on titles t  (cost=0.00..66.00 rows=3000 width=5) (actual time=0.009..0.304 rows=3000.00 loops=1)
+                    Buffers: shared hit=36
+Planning:
+  Buffers: shared hit=239
+Planning Time: 1.402 ms
+Execution Time: 17.778 ms
+=== R17 run 2 ===
+HashAggregate  (cost=1126.61..1126.65 rows=2 width=41) (actual time=9.992..9.994 rows=2.00 loops=1)
+  Group Key: t.is_netflix_original
+  Batches: 1  Memory Usage: 32kB
+  Buffers: shared hit=292
+  ->  Hash Join  (cost=103.50..787.61 rows=33900 width=10) (actual time=0.553..6.480 rows=33900.00 loops=1)
+        Hash Cond: (r.title_id = t.title_id)
+        Buffers: shared hit=292
+        ->  Seq Scan on ratings r  (cost=0.00..595.00 rows=33900 width=13) (actual time=0.007..1.537 rows=33900.00 loops=1)
+              Buffers: shared hit=256
+        ->  Hash  (cost=66.00..66.00 rows=3000 width=5) (actual time=0.535..0.536 rows=3000.00 loops=1)
+              Buckets: 4096  Batches: 1  Memory Usage: 150kB
+              Buffers: shared hit=36
+              ->  Seq Scan on titles t  (cost=0.00..66.00 rows=3000 width=5) (actual time=0.007..0.301 rows=3000.00 loops=1)
+                    Buffers: shared hit=36
+Planning:
+  Buffers: shared hit=239
+Planning Time: 0.628 ms
+Execution Time: 10.057 ms
+=== R17 run 3 ===
+HashAggregate  (cost=1126.61..1126.65 rows=2 width=41) (actual time=9.790..9.792 rows=2.00 loops=1)
+  Group Key: t.is_netflix_original
+  Batches: 1  Memory Usage: 32kB
+  Buffers: shared hit=292
+  ->  Hash Join  (cost=103.50..787.61 rows=33900 width=10) (actual time=0.557..6.327 rows=33900.00 loops=1)
+        Hash Cond: (r.title_id = t.title_id)
+        Buffers: shared hit=292
+        ->  Seq Scan on ratings r  (cost=0.00..595.00 rows=33900 width=13) (actual time=0.008..1.514 rows=33900.00 loops=1)
+              Buffers: shared hit=256
+        ->  Hash  (cost=66.00..66.00 rows=3000 width=5) (actual time=0.533..0.534 rows=3000.00 loops=1)
+              Buckets: 4096  Batches: 1  Memory Usage: 150kB
+              Buffers: shared hit=36
+              ->  Seq Scan on titles t  (cost=0.00..66.00 rows=3000 width=5) (actual time=0.008..0.307 rows=3000.00 loops=1)
+                    Buffers: shared hit=36
+Planning:
+  Buffers: shared hit=239
+Planning Time: 0.677 ms
+Execution Time: 9.856 ms
+=== R17 run 4 ===
+HashAggregate  (cost=1126.61..1126.65 rows=2 width=41) (actual time=9.810..9.812 rows=2.00 loops=1)
+  Group Key: t.is_netflix_original
+  Batches: 1  Memory Usage: 32kB
+  Buffers: shared hit=292
+  ->  Hash Join  (cost=103.50..787.61 rows=33900 width=10) (actual time=0.573..6.376 rows=33900.00 loops=1)
+        Hash Cond: (r.title_id = t.title_id)
+        Buffers: shared hit=292
+        ->  Seq Scan on ratings r  (cost=0.00..595.00 rows=33900 width=13) (actual time=0.009..1.567 rows=33900.00 loops=1)
+              Buffers: shared hit=256
+        ->  Hash  (cost=66.00..66.00 rows=3000 width=5) (actual time=0.551..0.551 rows=3000.00 loops=1)
+              Buckets: 4096  Batches: 1  Memory Usage: 150kB
+              Buffers: shared hit=36
+              ->  Seq Scan on titles t  (cost=0.00..66.00 rows=3000 width=5) (actual time=0.010..0.328 rows=3000.00 loops=1)
+                    Buffers: shared hit=36
+Planning:
+  Buffers: shared hit=239
+Planning Time: 0.722 ms
+Execution Time: 9.885 ms
+=== R17 run 5 ===
+HashAggregate  (cost=1126.61..1126.65 rows=2 width=41) (actual time=9.913..9.915 rows=2.00 loops=1)
+  Group Key: t.is_netflix_original
+  Batches: 1  Memory Usage: 32kB
+  Buffers: shared hit=292
+  ->  Hash Join  (cost=103.50..787.61 rows=33900 width=10) (actual time=0.552..6.489 rows=33900.00 loops=1)
+        Hash Cond: (r.title_id = t.title_id)
+        Buffers: shared hit=292
+        ->  Seq Scan on ratings r  (cost=0.00..595.00 rows=33900 width=13) (actual time=0.008..1.616 rows=33900.00 loops=1)
+              Buffers: shared hit=256
+        ->  Hash  (cost=66.00..66.00 rows=3000 width=5) (actual time=0.530..0.530 rows=3000.00 loops=1)
+              Buckets: 4096  Batches: 1  Memory Usage: 150kB
+              Buffers: shared hit=36
+              ->  Seq Scan on titles t  (cost=0.00..66.00 rows=3000 width=5) (actual time=0.008..0.311 rows=3000.00 loops=1)
+                    Buffers: shared hit=36
+Planning:
+  Buffers: shared hit=239
+Planning Time: 0.704 ms
+Execution Time: 9.983 ms

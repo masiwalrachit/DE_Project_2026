@@ -129,7 +129,7 @@ slower = [q for q in ["W01", "W02", "W03", "W04", "W05"] if float(opt[q]["avg_ms
 L.append("")
 L.append("Slower after indexing: " + (", ".join(slower) if slower else "none") + ". "
          "Each extra index on a table is one more B-tree insert per new row. The single-row "
-         "writes (W01–W03) stay around a millisecond, far inside the real-time target, so the "
+         "writes (W01–W03) stay within a few milliseconds, far inside the real-time target, so the "
          "overhead is acceptable for the read speed-ups. W04 inserts PAID invoices only, which "
          "the partial FAILED index does not store, so no new index is maintained by W04; its time "
          "is the INSERT itself and the FK check on accounts. W05 uses the FAILED partial index "
@@ -155,7 +155,8 @@ le = "- **R14 (kids compliance):** reads all views of the 10,000 kids profiles (
 L.append(le)
 L.append("- **R15, R17:** aggregates over whole tables (all active accounts, all ratings); a Seq Scan is the cheapest way to read everything.")
 L.append("- **R09, R18:** read all of 2026 (about a third of viewing_activity). The rewrite removes the per-row function, but most of the table is still read.")
-L.append("- **R02, R06, R07, R24, R25:** already used PK/UNIQUE indexes and ran well under 2 ms.\n")
+L.append("- **R02, R06, R07, R24, R25:** already used PK/UNIQUE indexes or scanned only a small table; "
+         "their baseline times were already close to 1 ms, so another index was not justified.\n")
 
 L.append("## 6. The wrong-result query: R13 (NULL rule)\n")
 L.append("`e.episode_id NOT IN (SELECT v.episode_id FROM viewing_activity v)` returned **0 rows**. "

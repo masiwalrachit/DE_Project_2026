@@ -1,0 +1,110 @@
+=== W05 run 1 ===
+Update on accounts a  (cost=1825.31..2503.88 rows=0 width=0) (actual time=26.642..26.644 rows=0.00 loops=1)
+  Buffers: shared hit=12136 dirtied=163 written=9
+  ->  Hash Join  (cost=1825.31..2503.88 rows=1189 width=50) (actual time=0.665..5.457 rows=634.00 loops=1)
+        Hash Cond: (a.account_id = i.account_id)
+        Buffers: shared hit=477
+        ->  Seq Scan on accounts a  (cost=0.00..622.51 rows=21351 width=10) (actual time=0.008..3.162 rows=21282.00 loops=1)
+              Filter: ((status)::text = 'ACTIVE'::text)
+              Rows Removed by Filter: 3718
+              Buffers: shared hit=309
+        ->  Hash  (cost=1807.85..1807.85 rows=1397 width=10) (actual time=0.649..0.649 rows=1376.00 loops=1)
+              Buckets: 2048  Batches: 1  Memory Usage: 76kB
+              Buffers: shared hit=168
+              ->  Index Scan using idx_invoices_failed_period_account on invoices i  (cost=0.28..1807.85 rows=1397 width=10) (actual time=0.012..0.522 rows=1376.00 loops=1)
+                    Index Cond: (billing_period_start = '2026-06-01'::date)
+                    Filter: ((status)::text = 'FAILED'::text)
+                    Index Searches: 1
+                    Buffers: shared hit=168
+Planning:
+  Buffers: shared hit=338
+Planning Time: 0.968 ms
+Execution Time: 26.743 ms
+=== W05 run 2 ===
+Update on accounts a  (cost=1825.31..2519.25 rows=0 width=0) (actual time=25.556..25.557 rows=0.00 loops=1)
+  Buffers: shared hit=14245 dirtied=8 written=8
+  ->  Hash Join  (cost=1825.31..2519.25 rows=1189 width=50) (actual time=0.662..5.859 rows=634.00 loops=1)
+        Hash Cond: (a.account_id = i.account_id)
+        Buffers: shared hit=484
+        ->  Seq Scan on accounts a  (cost=0.00..636.61 rows=21834 width=10) (actual time=0.008..3.615 rows=21282.00 loops=1)
+              Filter: ((status)::text = 'ACTIVE'::text)
+              Rows Removed by Filter: 3718
+              Buffers: shared hit=316
+        ->  Hash  (cost=1807.85..1807.85 rows=1397 width=10) (actual time=0.646..0.647 rows=1376.00 loops=1)
+              Buckets: 2048  Batches: 1  Memory Usage: 76kB
+              Buffers: shared hit=168
+              ->  Index Scan using idx_invoices_failed_period_account on invoices i  (cost=0.28..1807.85 rows=1397 width=10) (actual time=0.014..0.517 rows=1376.00 loops=1)
+                    Index Cond: (billing_period_start = '2026-06-01'::date)
+                    Filter: ((status)::text = 'FAILED'::text)
+                    Index Searches: 1
+                    Buffers: shared hit=168
+Planning:
+  Buffers: shared hit=338
+Planning Time: 1.732 ms
+Execution Time: 25.658 ms
+=== W05 run 3 ===
+Update on accounts a  (cost=1825.31..2536.83 rows=0 width=0) (actual time=27.207..27.209 rows=0.00 loops=1)
+  Buffers: shared hit=14362 dirtied=7 written=7
+  ->  Hash Join  (cost=1825.31..2536.83 rows=1189 width=50) (actual time=0.924..6.008 rows=634.00 loops=1)
+        Hash Cond: (a.account_id = i.account_id)
+        Buffers: shared hit=492
+        ->  Seq Scan on accounts a  (cost=0.00..652.74 rows=22388 width=10) (actual time=0.007..3.401 rows=21282.00 loops=1)
+              Filter: ((status)::text = 'ACTIVE'::text)
+              Rows Removed by Filter: 3718
+              Buffers: shared hit=324
+        ->  Hash  (cost=1807.85..1807.85 rows=1397 width=10) (actual time=0.909..0.909 rows=1376.00 loops=1)
+              Buckets: 2048  Batches: 1  Memory Usage: 76kB
+              Buffers: shared hit=168
+              ->  Index Scan using idx_invoices_failed_period_account on invoices i  (cost=0.28..1807.85 rows=1397 width=10) (actual time=0.013..0.708 rows=1376.00 loops=1)
+                    Index Cond: (billing_period_start = '2026-06-01'::date)
+                    Filter: ((status)::text = 'FAILED'::text)
+                    Index Searches: 1
+                    Buffers: shared hit=168
+Planning:
+  Buffers: shared hit=338
+Planning Time: 0.955 ms
+Execution Time: 27.297 ms
+=== W05 run 4 ===
+Update on accounts a  (cost=1825.31..2552.20 rows=0 width=0) (actual time=27.767..27.770 rows=0.00 loops=1)
+  Buffers: shared hit=14509 dirtied=8 written=8
+  ->  Hash Join  (cost=1825.31..2552.20 rows=1189 width=50) (actual time=0.668..5.716 rows=634.00 loops=1)
+        Hash Cond: (a.account_id = i.account_id)
+        Buffers: shared hit=499
+        ->  Seq Scan on accounts a  (cost=0.00..666.84 rows=22871 width=10) (actual time=0.006..3.440 rows=21282.00 loops=1)
+              Filter: ((status)::text = 'ACTIVE'::text)
+              Rows Removed by Filter: 3718
+              Buffers: shared hit=331
+        ->  Hash  (cost=1807.85..1807.85 rows=1397 width=10) (actual time=0.654..0.655 rows=1376.00 loops=1)
+              Buckets: 2048  Batches: 1  Memory Usage: 76kB
+              Buffers: shared hit=168
+              ->  Index Scan using idx_invoices_failed_period_account on invoices i  (cost=0.28..1807.85 rows=1397 width=10) (actual time=0.013..0.523 rows=1376.00 loops=1)
+                    Index Cond: (billing_period_start = '2026-06-01'::date)
+                    Filter: ((status)::text = 'FAILED'::text)
+                    Index Searches: 1
+                    Buffers: shared hit=168
+Planning:
+  Buffers: shared hit=338
+Planning Time: 1.086 ms
+Execution Time: 27.859 ms
+=== W05 run 5 ===
+Update on accounts a  (cost=1825.31..2569.76 rows=0 width=0) (actual time=28.165..28.167 rows=0.00 loops=1)
+  Buffers: shared hit=14567 dirtied=10 written=9
+  ->  Hash Join  (cost=1825.31..2569.76 rows=1189 width=50) (actual time=0.832..5.963 rows=634.00 loops=1)
+        Hash Cond: (a.account_id = i.account_id)
+        Buffers: shared hit=507
+        ->  Seq Scan on accounts a  (cost=0.00..682.95 rows=23424 width=10) (actual time=0.008..3.627 rows=21282.00 loops=1)
+              Filter: ((status)::text = 'ACTIVE'::text)
+              Rows Removed by Filter: 3718
+              Buffers: shared hit=339
+        ->  Hash  (cost=1807.85..1807.85 rows=1397 width=10) (actual time=0.817..0.817 rows=1376.00 loops=1)
+              Buckets: 2048  Batches: 1  Memory Usage: 76kB
+              Buffers: shared hit=168
+              ->  Index Scan using idx_invoices_failed_period_account on invoices i  (cost=0.28..1807.85 rows=1397 width=10) (actual time=0.014..0.678 rows=1376.00 loops=1)
+                    Index Cond: (billing_period_start = '2026-06-01'::date)
+                    Filter: ((status)::text = 'FAILED'::text)
+                    Index Searches: 1
+                    Buffers: shared hit=168
+Planning:
+  Buffers: shared hit=338
+Planning Time: 1.072 ms
+Execution Time: 28.262 ms
