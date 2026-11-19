@@ -24,7 +24,7 @@
 |------|------|----------------|-----------------|
 | Group Lead | Rachit Masiwal | 2501010364 | masiwalrachit |
 | Member 2 | Akshay | 2501010686 | Akshay-4311 |
-| Member 3 | Vedant | 2501010504 | |
+| Member 3 | Vedant | 2501010504 | whyvedant0707 |
 
 **Team No.:** T0147 · **Section:** C · **Repository URL:** https://github.com/masiwalrachit/DE_Project_2026
 
