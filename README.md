@@ -1,6 +1,6 @@
 # Netflix Movie & Series Streaming Database: DBMS Project
 
-**Course:** Database Management Systems · **Year:** B.Tech 2nd year · **Team size:** 4
+**Course:** Database Management Systems · **Year:** B.Tech 2nd year · **Team size:** 3
 **Database:** PostgreSQL 15 or newer · **Final submission:** Mon 23 Nov 2026
 **Topics used:** Data types & constraints · Keys & relationships · Normalization · Query execution plans · Indexing · Query optimization · VACUUM/ANALYZE · Partitioning & sharding
 
@@ -27,6 +27,15 @@
 | Member 3 | Vedant | 2501010504 | whyvedant0707 |
 
 **Team No.:** T0147 · **Section:** C · **Repository URL:** https://github.com/masiwalrachit/DE_Project_2026
+
+---
+
+## Final results
+
+- Optimized 30-query total: **13,552.437 ms → 748.459 ms (18.1× faster)** on seed data.
+- Biggest fix: R19 **12,718.282 ms → 40.886 ms (311.1× faster)**; R13 was corrected from the wrong empty result to 8 unwatched episodes.
+- Official large dataset: **4,012,819 viewing rows**, with **29/30 performance targets met**. The only miss, W04, inserts 424,960 invoices in one transaction and is documented with its batching design.
+- Evidence: [`docs/04_optimization_report.md`](docs/04_optimization_report.md) and [`docs/05_scalability_report.md`](docs/05_scalability_report.md).
 
 ---
 
