@@ -1,0 +1,102 @@
+=== R17 run 1 ===
+Finalize GroupAggregate  (cost=14299.66..14300.33 rows=2 width=41) (actual time=94.864..95.981 rows=2.00 loops=1)
+  Group Key: t.is_netflix_original
+  Buffers: shared hit=2194 read=4864
+  ->  Gather Merge  (cost=14299.66..14300.24 rows=5 width=17) (actual time=94.845..95.962 rows=6.00 loops=1)
+        Workers Planned: 2
+        Workers Launched: 2
+        Buffers: shared hit=2194 read=4864
+        ->  Sort  (cost=13299.64..13299.64 rows=2 width=17) (actual time=90.690..90.691 rows=2.00 loops=3)
+              Sort Key: t.is_netflix_original
+              Sort Method: quicksort  Memory: 25kB
+              Buffers: shared hit=2194 read=4864
+              Worker 0:  Sort Method: quicksort  Memory: 25kB
+              Worker 1:  Sort Method: quicksort  Memory: 25kB
+              ->  Partial HashAggregate  (cost=13299.61..13299.63 rows=2 width=17) (actual time=90.674..90.676 rows=2.00 loops=3)
+                    Group Key: t.is_netflix_original
+                    Batches: 1  Memory Usage: 32kB
+                    Buffers: shared hit=2178 read=4864
+                    Worker 0:  Batches: 1  Memory Usage: 32kB
+                    Worker 1:  Batches: 1  Memory Usage: 32kB
+                    ->  Hash Join  (cost=2076.00..10488.76 rows=281085 width=10) (actual time=10.861..64.258 rows=224868.33 loops=3)
+                          Hash Cond: (r.title_id = t.title_id)
+                          Buffers: shared hit=2178 read=4864
+                          ->  Parallel Seq Scan on ratings r  (cost=0.00..7674.85 rows=281085 width=13) (actual time=0.235..11.653 rows=224868.33 loops=3)
+                                Buffers: shared read=4864
+                          ->  Hash  (cost=1326.00..1326.00 rows=60000 width=5) (actual time=10.559..10.559 rows=60000.00 loops=3)
+                                Buckets: 65536  Batches: 1  Memory Usage: 2856kB
+                                Buffers: shared hit=2178
+                                ->  Seq Scan on titles t  (cost=0.00..1326.00 rows=60000 width=5) (actual time=0.026..5.687 rows=60000.00 loops=3)
+                                      Buffers: shared hit=2178
+Planning:
+  Buffers: shared hit=241 read=1
+Planning Time: 0.833 ms
+Execution Time: 96.069 ms
+=== R17 run 2 ===
+Finalize GroupAggregate  (cost=14299.66..14300.33 rows=2 width=41) (actual time=83.680..84.838 rows=2.00 loops=1)
+  Group Key: t.is_netflix_original
+  Buffers: shared hit=2476 read=4582
+  ->  Gather Merge  (cost=14299.66..14300.24 rows=5 width=17) (actual time=83.665..84.822 rows=6.00 loops=1)
+        Workers Planned: 2
+        Workers Launched: 2
+        Buffers: shared hit=2476 read=4582
+        ->  Sort  (cost=13299.64..13299.64 rows=2 width=17) (actual time=81.037..81.038 rows=2.00 loops=3)
+              Sort Key: t.is_netflix_original
+              Sort Method: quicksort  Memory: 25kB
+              Buffers: shared hit=2476 read=4582
+              Worker 0:  Sort Method: quicksort  Memory: 25kB
+              Worker 1:  Sort Method: quicksort  Memory: 25kB
+              ->  Partial HashAggregate  (cost=13299.61..13299.63 rows=2 width=17) (actual time=81.024..81.025 rows=2.00 loops=3)
+                    Group Key: t.is_netflix_original
+                    Batches: 1  Memory Usage: 32kB
+                    Buffers: shared hit=2460 read=4582
+                    Worker 0:  Batches: 1  Memory Usage: 32kB
+                    Worker 1:  Batches: 1  Memory Usage: 32kB
+                    ->  Hash Join  (cost=2076.00..10488.76 rows=281085 width=10) (actual time=10.530..55.765 rows=224868.33 loops=3)
+                          Hash Cond: (r.title_id = t.title_id)
+                          Buffers: shared hit=2460 read=4582
+                          ->  Parallel Seq Scan on ratings r  (cost=0.00..7674.85 rows=281085 width=13) (actual time=0.054..10.385 rows=224868.33 loops=3)
+                                Buffers: shared hit=282 read=4582
+                          ->  Hash  (cost=1326.00..1326.00 rows=60000 width=5) (actual time=10.417..10.417 rows=60000.00 loops=3)
+                                Buckets: 65536  Batches: 1  Memory Usage: 2856kB
+                                Buffers: shared hit=2178
+                                ->  Seq Scan on titles t  (cost=0.00..1326.00 rows=60000 width=5) (actual time=0.022..5.513 rows=60000.00 loops=3)
+                                      Buffers: shared hit=2178
+Planning:
+  Buffers: shared hit=242
+Planning Time: 0.645 ms
+Execution Time: 84.921 ms
+=== R17 run 3 ===
+Finalize GroupAggregate  (cost=14299.66..14300.33 rows=2 width=41) (actual time=82.936..84.016 rows=2.00 loops=1)
+  Group Key: t.is_netflix_original
+  Buffers: shared hit=2758 read=4300
+  ->  Gather Merge  (cost=14299.66..14300.24 rows=5 width=17) (actual time=82.922..84.001 rows=6.00 loops=1)
+        Workers Planned: 2
+        Workers Launched: 2
+        Buffers: shared hit=2758 read=4300
+        ->  Sort  (cost=13299.64..13299.64 rows=2 width=17) (actual time=80.539..80.540 rows=2.00 loops=3)
+              Sort Key: t.is_netflix_original
+              Sort Method: quicksort  Memory: 25kB
+              Buffers: shared hit=2758 read=4300
+              Worker 0:  Sort Method: quicksort  Memory: 25kB
+              Worker 1:  Sort Method: quicksort  Memory: 25kB
+              ->  Partial HashAggregate  (cost=13299.61..13299.63 rows=2 width=17) (actual time=80.526..80.527 rows=2.00 loops=3)
+                    Group Key: t.is_netflix_original
+                    Batches: 1  Memory Usage: 32kB
+                    Buffers: shared hit=2742 read=4300
+                    Worker 0:  Batches: 1  Memory Usage: 32kB
+                    Worker 1:  Batches: 1  Memory Usage: 32kB
+                    ->  Hash Join  (cost=2076.00..10488.76 rows=281085 width=10) (actual time=10.437..55.597 rows=224868.33 loops=3)
+                          Hash Cond: (r.title_id = t.title_id)
+                          Buffers: shared hit=2742 read=4300
+                          ->  Parallel Seq Scan on ratings r  (cost=0.00..7674.85 rows=281085 width=13) (actual time=0.051..10.612 rows=224868.33 loops=3)
+                                Buffers: shared hit=564 read=4300
+                          ->  Hash  (cost=1326.00..1326.00 rows=60000 width=5) (actual time=10.335..10.335 rows=60000.00 loops=3)
+                                Buckets: 65536  Batches: 1  Memory Usage: 2856kB
+                                Buffers: shared hit=2178
+                                ->  Seq Scan on titles t  (cost=0.00..1326.00 rows=60000 width=5) (actual time=0.021..5.460 rows=60000.00 loops=3)
+                                      Buffers: shared hit=2178
+Planning:
+  Buffers: shared hit=242
+Planning Time: 0.601 ms
+Execution Time: 84.098 ms

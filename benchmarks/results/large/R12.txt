@@ -1,0 +1,63 @@
+=== R12 run 1 ===
+Sort  (cost=3495.51..3498.07 rows=1023 width=48) (actual time=88.526..88.534 rows=6.00 loops=1)
+  Sort Key: (date_trunc('month'::text, (cancelled_on)::timestamp with time zone))
+  Sort Method: quicksort  Memory: 25kB
+  Buffers: shared hit=1606 read=3724 written=2170
+  ->  HashAggregate  (cost=3423.91..3444.37 rows=1023 width=48) (actual time=88.495..88.511 rows=6.00 loops=1)
+        Group Key: date_trunc('month'::text, (cancelled_on)::timestamp with time zone)
+        Batches: 1  Memory Usage: 65kB
+        Buffers: shared hit=1603 read=3724 written=2170
+        ->  Bitmap Heap Scan on accounts  (cost=22.75..3409.80 rows=1411 width=16) (actual time=2.174..86.684 rows=11787.00 loops=1)
+              Recheck Cond: ((cancelled_on >= '2026-01-01'::date) AND (cancelled_on < '2027-01-01'::date) AND ((status)::text = 'CANCELLED'::text))
+              Heap Blocks: exact=5315
+              Buffers: shared hit=1603 read=3724 written=2170
+              ->  Bitmap Index Scan on idx_accounts_cancelled_on  (cost=0.00..22.40 rows=1411 width=0) (actual time=1.228..1.231 rows=11787.00 loops=1)
+                    Index Cond: ((cancelled_on >= '2026-01-01'::date) AND (cancelled_on < '2027-01-01'::date))
+                    Index Searches: 1
+                    Buffers: shared read=12
+Planning:
+  Buffers: shared hit=213 read=2
+Planning Time: 0.917 ms
+Execution Time: 88.630 ms
+=== R12 run 2 ===
+Sort  (cost=3495.51..3498.07 rows=1023 width=48) (actual time=14.625..14.626 rows=6.00 loops=1)
+  Sort Key: (date_trunc('month'::text, (cancelled_on)::timestamp with time zone))
+  Sort Method: quicksort  Memory: 25kB
+  Buffers: shared hit=5330
+  ->  HashAggregate  (cost=3423.91..3444.37 rows=1023 width=48) (actual time=14.600..14.609 rows=6.00 loops=1)
+        Group Key: date_trunc('month'::text, (cancelled_on)::timestamp with time zone)
+        Batches: 1  Memory Usage: 65kB
+        Buffers: shared hit=5327
+        ->  Bitmap Heap Scan on accounts  (cost=22.75..3409.80 rows=1411 width=16) (actual time=1.382..13.043 rows=11787.00 loops=1)
+              Recheck Cond: ((cancelled_on >= '2026-01-01'::date) AND (cancelled_on < '2027-01-01'::date) AND ((status)::text = 'CANCELLED'::text))
+              Heap Blocks: exact=5315
+              Buffers: shared hit=5327
+              ->  Bitmap Index Scan on idx_accounts_cancelled_on  (cost=0.00..22.40 rows=1411 width=0) (actual time=0.732..0.732 rows=11787.00 loops=1)
+                    Index Cond: ((cancelled_on >= '2026-01-01'::date) AND (cancelled_on < '2027-01-01'::date))
+                    Index Searches: 1
+                    Buffers: shared hit=12
+Planning:
+  Buffers: shared hit=215
+Planning Time: 0.586 ms
+Execution Time: 14.675 ms
+=== R12 run 3 ===
+Sort  (cost=3495.51..3498.07 rows=1023 width=48) (actual time=14.112..14.113 rows=6.00 loops=1)
+  Sort Key: (date_trunc('month'::text, (cancelled_on)::timestamp with time zone))
+  Sort Method: quicksort  Memory: 25kB
+  Buffers: shared hit=5330
+  ->  HashAggregate  (cost=3423.91..3444.37 rows=1023 width=48) (actual time=14.087..14.094 rows=6.00 loops=1)
+        Group Key: date_trunc('month'::text, (cancelled_on)::timestamp with time zone)
+        Batches: 1  Memory Usage: 65kB
+        Buffers: shared hit=5327
+        ->  Bitmap Heap Scan on accounts  (cost=22.75..3409.80 rows=1411 width=16) (actual time=1.428..12.618 rows=11787.00 loops=1)
+              Recheck Cond: ((cancelled_on >= '2026-01-01'::date) AND (cancelled_on < '2027-01-01'::date) AND ((status)::text = 'CANCELLED'::text))
+              Heap Blocks: exact=5315
+              Buffers: shared hit=5327
+              ->  Bitmap Index Scan on idx_accounts_cancelled_on  (cost=0.00..22.40 rows=1411 width=0) (actual time=0.736..0.737 rows=11787.00 loops=1)
+                    Index Cond: ((cancelled_on >= '2026-01-01'::date) AND (cancelled_on < '2027-01-01'::date))
+                    Index Searches: 1
+                    Buffers: shared hit=12
+Planning:
+  Buffers: shared hit=215
+Planning Time: 0.787 ms
+Execution Time: 14.184 ms
